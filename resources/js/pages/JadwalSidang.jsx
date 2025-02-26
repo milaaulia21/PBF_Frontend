@@ -23,7 +23,7 @@ const { dataJadwal } = Data
                         </thead>
                         <tbody>
                             {dataJadwal.map((jadwal, index) => (
-                                <tr key={jadwal.id_sidang}>
+                                <tr key={index}>
                                     <td className="p-4 border text-center">{index + 1}</td>
                                     <td className="p-4 border text-center">{jadwal.nama_mahasiswa}</td>
                                     <td className="p-4 border text-center">{jadwal.nama_ruangan}</td>

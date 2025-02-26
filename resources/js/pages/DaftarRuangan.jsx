@@ -1,9 +1,10 @@
 import MainLayout from "../components/MainLayout";
-import Data from "../lib/Data";
+import { useContext } from "react";
+import { DataContext } from "../lib/DataContext";
 
 export default function DaftarRuangan() {
-
-  const { dataRuangan } = Data
+  const dataContext = useContext(DataContext)
+  const { dataRuangan } = dataContext
 
   let no = 1
 

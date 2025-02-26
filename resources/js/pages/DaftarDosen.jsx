@@ -1,9 +1,11 @@
 import MainLayout from "../components/MainLayout";
-import Data from "../lib/Data";
+import { useContext } from "react";
+import { DataContext } from "../lib/DataContext";
 
 export default function DaftarDosen() {
-    const { dataDosen } = Data
-    
+    const dataContext = useContext(DataContext)
+    const { dataDosen } = dataContext
+
     let no = 1
     return (
         <>
@@ -19,7 +21,7 @@ export default function DaftarDosen() {
                             </tr>
                         </thead>
                         <tbody>
-                            {dataDosen.map((dosen,index) => (
+                            {dataDosen.map((dosen, index) => (
                                 <tr key={index}>
                                     <td className="p-4 border text-center">{no++}</td>
                                     <td className="p-4 border text-center">{dosen.nama_dosen}</td>

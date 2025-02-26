@@ -1,9 +1,12 @@
 import MainLayout from "../components/MainLayout";
-import Data from "../lib/Data";
+import { useContext } from "react";
+import { DataContext } from "../lib/DataContext";
 
 export default function JadwalSidang() {
-      
-const { dataJadwal } = Data
+    
+    const dataContext = useContext(DataContext)
+    const { dataJadwal } = dataContext
+
     return (
         <>
             <MainLayout>
@@ -12,13 +15,13 @@ const { dataJadwal } = Data
                     <table className="border w-[70%]">
                         <thead>
                             <tr className="border bg-slate-500 text-white">
-                                <th  className="p-4 border w-12 text-center">No</th>
-                                <th  className="p-4 border w-1/4 text-center">Nama Mahasiswa</th>
-                                <th  className="p-4 border w-12 text-center">Nama Ruangan</th>
-                                <th  className="p-4 border w-12 text-center">Tanggal Sidang</th>
-                                <th  className="p-4 border w-12 text-center">Waktu Mulai</th>
-                                <th  className="p-4 border w-12 text-center">Waktu Selesai</th>
-                                <th  className="p-4 border w-12 text-center">Status</th>
+                                <th className="p-4 border w-12 text-center">No</th>
+                                <th className="p-4 border w-1/4 text-center">Nama Mahasiswa</th>
+                                <th className="p-4 border w-12 text-center">Nama Ruangan</th>
+                                <th className="p-4 border w-12 text-center">Tanggal Sidang</th>
+                                <th className="p-4 border w-12 text-center">Waktu Mulai</th>
+                                <th className="p-4 border w-12 text-center">Waktu Selesai</th>
+                                <th className="p-4 border w-12 text-center">Status</th>
                             </tr>
                         </thead>
                         <tbody>

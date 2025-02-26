@@ -1,9 +1,11 @@
 import MainLayout from "../components/MainLayout";
-import Data from '../lib/Data'
+import { useContext } from "react";
+import { DataContext } from "../lib/DataContext";
 
 export default function DaftarMahasiswa() {
 
-const { dataMahasiswa } = Data
+    const dataContext = useContext(DataContext)
+    const { dataMahasiswa } = dataContext
 
     return (
         <>

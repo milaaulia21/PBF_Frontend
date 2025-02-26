@@ -25,4 +25,13 @@ export default defineConfig({
     },
     // Tambahan ini untuk menangkap semua rute di React Router
     base: '/',
+    server: {
+        proxy: {
+          '/api': {
+            target: 'http://localhost:8080',
+            changeOrigin: true,
+            secure: false,
+          },
+        },
+      },
 });

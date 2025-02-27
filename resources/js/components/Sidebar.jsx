@@ -24,6 +24,7 @@ export default function Sidebar() {
             <h3 className='ms-5 text-sm font-bold text-slate-800 m-5'>Add</h3>
             <div className='flex flex-col gap-4'>
                 <Menus name='Pendaftaran Sidang' navigate='pendaftaran-sidang' icon={<FaPlus />} />
+                <Menus name='Tambah Mahasiswa' navigate='tambah-mahasiswa' icon={<FaPlus />} />
             </div>
         </aside>
     )

@@ -30,10 +30,6 @@ export default function DataProvider({ children }) {
             }
         }
         fetchData();
-        console.log('data dosen: ' , dataDosen)
-        console.log('data mahasiswa: ' , dataMahasiswa)
-        console.log('data sidang: ', dataSidang)
-        console.log('data ruangan: ' ,{dataRuangan})
     }, [])
 
     return (

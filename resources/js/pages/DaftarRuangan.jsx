@@ -26,7 +26,7 @@ export default function DaftarRuangan() {
                 <tr className="" key={index}>
                   <td className="p-4 border text-center">{no++}</td>
                   <td className="p-4 border text-center">{ruangan.kode_ruangan}</td>
-                  <td className="p-4 border text-center">{ruangan.nama_ruangan}</td>
+                  <td className="p-4 border">{ruangan.nama_ruangan}</td>
                 </tr>
               ))}
             </tbody>

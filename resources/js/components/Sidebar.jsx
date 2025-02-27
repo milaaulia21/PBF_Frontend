@@ -14,13 +14,16 @@ export default function Sidebar() {
             <div className='flex flex-col gap-4'>
                 <Menus name='Home' icon={<FaHome />} />
                 <Menus name='Jadwal Sidang' navigate='jadwal-sidang' icon={<IoTimeOutline />} />
-                <Menus name='Pendaftaran Sidang' navigate='pendaftaran-sidang' icon={<FaPlus />} />
             </div>
             <h3 className='ms-5 text-sm font-bold text-slate-800 m-5'>List</h3>
             <div className='flex flex-col gap-4'>
                 <Menus name='Daftar Mahasiswa' navigate='daftar-mahasiswa' icon={<PiStudentDuotone />} />
                 <Menus name='Daftar Dosen' navigate='daftar-dosen' icon={<GiTeacher />} />
                 <Menus name='Daftar Ruangan' navigate='daftar-ruangan' icon={<RiSchoolLine />} />
+            </div>
+            <h3 className='ms-5 text-sm font-bold text-slate-800 m-5'>Add</h3>
+            <div className='flex flex-col gap-4'>
+                <Menus name='Pendaftaran Sidang' navigate='pendaftaran-sidang' icon={<FaPlus />} />
             </div>
         </aside>
     )

@@ -15,6 +15,7 @@ export default function DaftarMahasiswa() {
                     <table className="border">
                         <thead>
                             <tr className="border bg-slate-500 text-white">
+                                <th className="p-4 border">No</th>
                                 <th className="p-4 border">Nama Mahasiswa</th>
                                 <th className="p-4 border">NIM</th>
                                 <th className="p-4 border">Program Studi</th>
@@ -25,6 +26,7 @@ export default function DaftarMahasiswa() {
                         <tbody>
                             {dataMahasiswa.map((mahasiswa, index) => (
                                 <tr className="" key={index}>
+                                    <td className="p-4 border w-12 text-center" >{index + 1}</td>
                                     <td className="p-4 border" >{mahasiswa.nama_mhs}</td>
                                     <td className="p-4 border" >{mahasiswa.nim}</td>
                                     <td className="p-4 border" >{mahasiswa.prodi_mhs}</td>

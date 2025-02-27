@@ -3,9 +3,10 @@ import { useContext } from "react";
 import { DataContext } from "../lib/DataContext";
 
 export default function JadwalSidang() {
-    
-    const dataContext = useContext(DataContext)
-    const { dataJadwal } = dataContext
+    const context = useContext(DataContext)
+    const { dataSidang, dataMahasiswa, dataRuangan } = context
+    console.log(dataMahasiswa)
+    console.log(dataSidang)
 
     return (
         <>
@@ -16,24 +17,25 @@ export default function JadwalSidang() {
                         <thead>
                             <tr className="border bg-slate-500 text-white">
                                 <th className="p-4 border w-12 text-center">No</th>
-                                <th className="p-4 border w-1/4 text-center">Nama Mahasiswa</th>
-                                <th className="p-4 border w-12 text-center">Nama Ruangan</th>
-                                <th className="p-4 border w-12 text-center">Tanggal Sidang</th>
-                                <th className="p-4 border w-12 text-center">Waktu Mulai</th>
-                                <th className="p-4 border w-12 text-center">Waktu Selesai</th>
-                                <th className="p-4 border w-12 text-center">Status</th>
+                                <th className="p-4 border w-fit text-center">Nama Mahasiswa</th>
+                                <th className="p-4 border w-fit text-center">Nama Ruangan</th>
+                                <th className="p-4 border w-fit text-center">Tanggal Sidang</th>
+                                <th className="p-4 border w-fit text-center">Waktu Mulai</th>
+                                <th className="p-4 border w-fit text-center">Waktu Selesai</th>
+                                <th className="p-4 border w-fit text-center">Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {dataJadwal.map((jadwal, index) => (
+                            {dataSidang.map((sidang, index) => (
                                 <tr key={index}>
                                     <td className="p-4 border text-center">{index + 1}</td>
-                                    <td className="p-4 border text-center">{jadwal.nama_mahasiswa}</td>
-                                    <td className="p-4 border text-center">{jadwal.nama_ruangan}</td>
-                                    <td className="p-4 border text-center">{jadwal.tanggal_sidang}</td>
-                                    <td className="p-4 border text-center">{jadwal.waktu_mulai}</td>
-                                    <td className="p-4 border text-center">{jadwal.waktu_selesai}</td>
-                                    <td className="p-4 border text-center">{jadwal.status}</td>
+                                    <td className="p-4 border text-center">{dataMahasiswa.find(item => item.id_mhs === sidang.id_mhs) ? dataMahasiswa.find(item => item.id_mhs === sidang.id_mhs).nama_mhs : 'Nama Tidak ditemukan'}</td>
+                                    <td className="p-4 border text-center">{dataRuangan.find(item => item.id_ruangan === sidang.id_ruangan) ? dataRuangan.find(item => item.id_ruangan === sidang.id_ruangan).nama_ruangan : 'Ruangan Tidak ditemukan'}</td>
+                                    <td className="p-4 border text-center">{sidang.tanggal_sidang}</td>
+                                    <td className="p-4 border text-center">{sidang.waktu_mulai}</td>
+                                    <td className="p-4 border text-center">{sidang.waktu_selesai}</td>
+                                    <td className="p-4 border text-center">{sidang.status}</td>
+                                    {console.log(sidang)}
                                 </tr>
                             ))}
                         </tbody>

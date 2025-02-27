@@ -24,8 +24,8 @@ export default function DaftarDosen() {
                             {dataDosen.map((dosen, index) => (
                                 <tr key={index}>
                                     <td className="p-4 border text-center">{no++}</td>
-                                    <td className="p-4 border text-center">{dosen.nama_dosen}</td>
-                                    <td className="p-4 border text-center">{dosen.nip}</td>
+                                    <td className="p-4 border">{dosen.nama_dosen}</td>
+                                    <td className="p-4 border">{dosen.nip}</td>
                                 </tr>
                             ))}
                         </tbody>

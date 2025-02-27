@@ -14,6 +14,13 @@ export default defineConfig({
         host: 'localhost',
         port: 5173,
         open: true,
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8080',
+                changeOrigin: true,
+                secure: false,
+            },
+        },
     },
     resolve: {
         alias: {
@@ -23,15 +30,5 @@ export default defineConfig({
     build: {
         outDir: 'public/build',
     },
-    // Tambahan ini untuk menangkap semua rute di React Router
-    base: '/',
-    server: {
-        proxy: {
-          '/api': {
-            target: 'http://localhost:8080',
-            changeOrigin: true,
-            secure: false,
-          },
-        },
-      },
+
 });

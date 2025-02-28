@@ -12,7 +12,7 @@ export default function DaftarMahasiswa() {
             <MainLayout>
                 <div className="w-full flex flex-col items-center">
                     <h2 className="text-2xl font-semibold mt-4 mb-10">Daftar Mahasiswa</h2>
-                    <table className="border">
+                    <table className="border mb-10">
                         <thead>
                             <tr className="border bg-slate-500 text-white">
                                 <th className="p-4 border">No</th>

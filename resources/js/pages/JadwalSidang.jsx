@@ -12,7 +12,7 @@ export default function JadwalSidang() {
         <>
             <MainLayout>
                 <div className="min-h-[90vh] min-w-full flex flex-col items-center gap-6">
-                    <h1 className="text-2xl font-semibold mt-4 mb-610">Jadwal Sidang</h1>
+                    <h1 className="text-2xl font-semibold mt-4 mb-10">Jadwal Sidang</h1>
                     <table className="border w-[70%]">
                         <thead>
                             <tr className="border bg-slate-500 text-white">
@@ -35,7 +35,6 @@ export default function JadwalSidang() {
                                     <td className="p-4 border text-center">{sidang.waktu_mulai}</td>
                                     <td className="p-4 border text-center">{sidang.waktu_selesai}</td>
                                     <td className="p-4 border text-center">{sidang.status}</td>
-                                    {console.log(sidang)}
                                 </tr>
                             ))}
                         </tbody>

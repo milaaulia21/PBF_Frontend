@@ -25,6 +25,8 @@ export default function Sidebar() {
             <div className='flex flex-col gap-4'>
                 <Menus name='Pendaftaran Sidang' navigate='pendaftaran-sidang' icon={<FaPlus />} />
                 <Menus name='Tambah Mahasiswa' navigate='tambah-mahasiswa' icon={<FaPlus />} />
+                <Menus name='Tambah Ruangan' navigate='tambah-ruangan' icon={<FaPlus />} />
+                <Menus name='Tambah Dosen' navigate='tambah-dosen' icon={<FaPlus />} />
             </div>
         </aside>
     )

@@ -1,13 +1,15 @@
-import { useState } from "react"
+import { useState,useContext } from "react"
+import { DataContext } from "../lib/DataContext"
 import MainLayout from "../components/MainLayout"
 
 export default function TambahMahasiswa(){
+    const { fetchData } = useContext(DataContext)
+
     const [nama, setNama] = useState('')
     const [nim, setNim] = useState('')
     const [prodi, setProdi] = useState('')
     const [tahunAkademik, setTahunAkademik] = useState('')
     const [judulSkripsi, setJudulSkripsi] = useState('')
-
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -15,7 +17,7 @@ export default function TambahMahasiswa(){
         try{
             const response = await fetch('http://localhost:8080/mahasiswa',{
                 method: 'POST',
-                mode: "no-cors",
+                mode: "cors",
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -28,8 +30,15 @@ export default function TambahMahasiswa(){
                 })
             })
             
+            fetchData()
             const result = await response.json()
             console.log("Response", result)
+
+            setNama('')
+            setNim('')
+            setProdi('')
+            setTahunAkademik('')
+            setJudulSkripsi('')
         }catch(e){
             console.error("Gagal Mengirim Data :", e)
         }

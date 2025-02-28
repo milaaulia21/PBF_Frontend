@@ -5,6 +5,7 @@
         "build": "vite build",
         "dev": "vite"
     },
+    "proxy": "http://localhost:8080",
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
         "@vitejs/plugin-react": "^4.2.0",

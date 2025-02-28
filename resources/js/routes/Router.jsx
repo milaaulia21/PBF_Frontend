@@ -7,6 +7,8 @@ import DaftarDosen from '../pages/DaftarDosen'
 import DaftarMahasiswa from '../pages/DaftarMahasiswa'
 import DaftarRuangan from '../pages/DaftarRuangan'
 import TambahMahasiswa from '../pages/TambahMahasiswa'
+import TambahRuangan from '../pages/TambahRuangan'
+import TambahDosen from '../pages/TambahDosen'
 
 export default function Router(){
     return(
@@ -20,6 +22,8 @@ export default function Router(){
                     <Route path='/daftar-mahasiswa' element={<DaftarMahasiswa/>}/>
                     <Route path='/daftar-ruangan' element={<DaftarRuangan/>}/>
                     <Route path='/tambah-mahasiswa' element={<TambahMahasiswa/>}/>
+                    <Route path='/tambah-ruangan' element={<TambahRuangan/>}/>
+                    <Route path='/tambah-dosen' element={<TambahDosen/>}/>
             </Routes>
         </>
     )

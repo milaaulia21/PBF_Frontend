@@ -2,6 +2,7 @@ import { React, useState, useContext } from "react";
 import { DataContext } from "../lib/DataContext";
 import { useForm } from "react-hook-form";
 import MainLayout from "../components/MainLayout";
+
 export default function PendaftaranSidang() {
     const dataContext = useContext(DataContext)
     const { dataMahasiswa, dataRuangan, dataDosen } = dataContext
@@ -36,10 +37,10 @@ export default function PendaftaranSidang() {
                             ))}
                         </select>
                         
-                        <button type="submit" className="bg-slate-800 self-center py-2 px-5 text-white rounded-md hover:opacity-75 hover:scale-105 transition-all duration-150 ease-in-out">Submit</button>
+                        <button className="bg-slate-800 self-center py-2 px-5 text-white rounded-md hover:opacity-75 hover:scale-105 transition-all duration-150 ease-in-out">Submit</button>
                     </form>
 
-                    <form id="lecturer-selection" action="" className={isSubmitted ? 'hidden' : "flex border w-[70%]  flex-col gap-4 p-5 rounded-md mt-5" } onSubmit={handleSubmit(onSubmit)}>
+                    <form id="lecturer-selection" action="" className={isSubmitted ? "flex border w-[70%]  flex-col gap-4 p-5 rounded-md mt-5" : 'hidden' } onSubmit={handleSubmit(onSubmit)}>
                         <label htmlFor="dosen" className="font-semibold">Pilih Dosen Penguji</label>
                         <select name="dosen" id="dosen" className="w-full p-2 rounded-md bg-slate-100 mb-4" {...register('dosen1', { required: 'Dosen 1 harus di isi!!'})}>
                             {dataDosen.map((dosen, index) => (

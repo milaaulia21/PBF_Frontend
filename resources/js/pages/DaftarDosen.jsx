@@ -1,10 +1,32 @@
 import MainLayout from "../components/MainLayout";
 import { useContext } from "react";
 import { DataContext } from "../lib/DataContext";
+import DeleteEditRow from "../components/DeleteEditRow";
 
 export default function DaftarDosen() {
     const dataContext = useContext(DataContext)
-    const { dataDosen } = dataContext
+    const { dataDosen, fetchData } = dataContext
+
+    const handleDelete = async(id) => {
+        try{
+            const response = await fetch(`http://localhost:8080/dosen/${id}`,{
+                method: 'DELETE',
+                headers: {
+                    'Content-Type' : 'application/json'
+                }
+            })
+
+            if(!response.ok){
+                throw new Error('gak betul ni bang')
+            }
+
+            fetchData()
+            const result = await response.json()
+            console.log(result)
+        }catch(e){
+            console.error(e)
+        }
+    }
 
     let no = 1
     return (
@@ -18,6 +40,8 @@ export default function DaftarDosen() {
                                 <th className="p-4 border w-12 text-center">No</th>
                                 <th className="p-4 border w-1/2 text-center">Nama Dosen</th>
                                 <th className="p-4 border w-1/2 text-center">NIP</th>
+                                <th className="p-4 border w-1/2 text-center">Edit</th>
+                                <th className="p-4 border w-1/2 text-center">Del</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,6 +50,7 @@ export default function DaftarDosen() {
                                     <td className="p-4 border text-center">{no++}</td>
                                     <td className="p-4 border">{dosen.nama_dosen}</td>
                                     <td className="p-4 border">{dosen.nip}</td>
+                                    <DeleteEditRow  onDelete={()=> handleDelete(dosen.id_dosen)}/>
                                 </tr>
                             ))}
                         </tbody>

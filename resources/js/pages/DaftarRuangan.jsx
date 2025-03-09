@@ -1,12 +1,37 @@
 import MainLayout from "../components/MainLayout";
 import { useContext } from "react";
 import { DataContext } from "../lib/DataContext";
+import DeleteEditRow from "../components/DeleteEditRow";
 
 export default function DaftarRuangan() {
   const dataContext = useContext(DataContext)
-  const { dataRuangan } = dataContext
+  const { dataRuangan, fetchData } = dataContext
+  console.log(dataRuangan)
 
   let no = 1
+
+  const handleDelete = async (id) => {
+    
+    try {
+      const response = await fetch(`http://localhost:8080/ruangan/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': "application/json",
+        }
+      })
+
+      if (!response.ok) {
+        throw new Error('Gagal menghapus data');
+      }
+
+      fetchData()
+      const result = await response.json()
+      console.log(result)
+
+    } catch (e) {
+      console.error('Gagal Menghapus Data :', e)
+    }
+  }
 
   return (
     <>
@@ -19,14 +44,18 @@ export default function DaftarRuangan() {
                 <th className="p-4 border w-12 text-center">No</th>
                 <th className="p-4 border w-1/2 text-center">Kode Ruangan</th>
                 <th className="p-4 border w-1/2 text-center">Nama Ruangan</th>
+                <th className="p-4 border w-1/2 text-center">Edit</th>
+                <th className="p-4 border w-1/2 text-center">Del</th>
               </tr>
             </thead>
             <tbody>
               {dataRuangan.map((ruangan, index) => (
+
                 <tr className="" key={index}>
                   <td className="p-4 border text-center">{no++}</td>
                   <td className="p-4 border text-center">{ruangan.kode_ruangan}</td>
                   <td className="p-4 border">{ruangan.nama_ruangan}</td>
+                  <DeleteEditRow  onDelete={() => handleDelete(ruangan.id_ruangan)}/>
                 </tr>
               ))}
             </tbody>

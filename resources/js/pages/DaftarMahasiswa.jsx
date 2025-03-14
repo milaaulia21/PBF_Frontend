@@ -2,30 +2,18 @@ import MainLayout from "../components/MainLayout";
 import { useContext } from "react";
 import { DataContext } from "../lib/DataContext";
 import DeleteEditRow from "../components/DeleteEditRow";
+import { handleDelete } from "../api/mahasiswaApi";
 
 export default function DaftarMahasiswa() {
-
     const dataContext = useContext(DataContext)
     const { fetchData, dataMahasiswa } = dataContext
 
-    const handleDelete = async (id) => {
+    const handleDeleteWrapper = async(id) => {
         try {
-            const response = await fetch(`http://localhost:8080/mahasiswa/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': "application/json",
-                }
-            })
-
-            if (!response.ok) {
-                throw new Error('Gak betul ini bang deletenya')
-            }
-
+            await handleDelete(id)
             fetchData()
-            const result = await response.json()
-            console.log(result)
-        }catch(e){
-            console.error('Gagal Menghapus Data :', e)
+        } catch (e) {
+            console.error(e)
         }
     }
     return (
@@ -55,7 +43,7 @@ export default function DaftarMahasiswa() {
                                     <td className="p-4 border" >{mahasiswa.prodi_mhs}</td>
                                     <td className="p-4 border" >{mahasiswa.thn_akademik}</td>
                                     <td className="p-4 border" >{mahasiswa.judul_skripsi}</td>
-                                    <DeleteEditRow onDelete={() => handleDelete(mahasiswa.id_mhs)} />
+                                    <DeleteEditRow onDelete={() => handleDeleteWrapper(mahasiswa.id_mhs)} />
                                 </tr>
                             ))}
                         </tbody>

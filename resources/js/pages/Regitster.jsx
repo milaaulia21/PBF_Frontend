@@ -1,14 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 
-export default function Login() {
+export default function Register() {
     const navigate = useNavigate()
 
     const handleNavigate = () => {
-        navigate('/landingpage')
-    }
-
-    const handleNavigatetoRegister = () => {
-        navigate('/register')
+        navigate('/login')
     }
 
     return (
@@ -31,7 +27,7 @@ export default function Login() {
                         <p className="">OR</p>
                         <div className="bg-slate-300 w-full h-[1px]"></div>
                     </div>
-                    <button className='bg-slate-600 text-white py-2 rounded-lg my-5 hover:opacity-70 ease-in-out transition-all duration-150' type='submit' onClick={handleNavigatetoRegister}>Register</button>
+                    <button className='bg-slate-600 text-white py-2 rounded-lg my-5 hover:opacity-70 ease-in-out transition-all duration-150' type='submit'>Register</button>
                     <a className="text-xs text-sky-500 underline hover:opacity-70 ease-in-out transition-all duration-150">Forgot Password?</a>
                 </form>
             </div>

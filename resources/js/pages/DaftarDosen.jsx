@@ -2,33 +2,22 @@ import MainLayout from "../components/MainLayout";
 import { useContext } from "react";
 import { DataContext } from "../lib/DataContext";
 import DeleteEditRow from "../components/DeleteEditRow";
+import { handleDelete } from '../api/dosenApi';
 
 export default function DaftarDosen() {
-    const dataContext = useContext(DataContext)
-    const { dataDosen, fetchData } = dataContext
+    const dataContext = useContext(DataContext);
+    const { dataDosen, fetchData } = dataContext;
 
-    const handleDelete = async(id) => {
-        try{
-            const response = await fetch(`http://localhost:8080/dosen/${id}`,{
-                method: 'DELETE',
-                headers: {
-                    'Content-Type' : 'application/json'
-                }
-            })
-
-            if(!response.ok){
-                throw new Error('gak betul ni bang')
-            }
-
-            fetchData()
-            const result = await response.json()
-            console.log(result)
-        }catch(e){
-            console.error(e)
+    const handleDeleteWrapper = async(id) => {
+        try {
+            await handleDelete(id);
+            fetchData();
+        } catch (e) {
+            console.error(e);
         }
     }
 
-    let no = 1
+    let no = 1;
     return (
         <>
             <MainLayout>
@@ -50,7 +39,7 @@ export default function DaftarDosen() {
                                     <td className="p-4 border text-center">{no++}</td>
                                     <td className="p-4 border">{dosen.nama_dosen}</td>
                                     <td className="p-4 border">{dosen.nip}</td>
-                                    <DeleteEditRow  onDelete={()=> handleDelete(dosen.id_dosen)}/>
+                                    <DeleteEditRow onDelete={() => handleDeleteWrapper(dosen.id_dosen)} />
                                 </tr>
                             ))}
                         </tbody>

@@ -10,6 +10,7 @@ import TambahMahasiswa from '../pages/TambahMahasiswa'
 import TambahRuangan from '../pages/TambahRuangan'
 import TambahDosen from '../pages/TambahDosen'
 import Register from '../pages/Regitster'
+import EditMahasiswa from '../pages/EditMahasiswa'
 
 export default function Router(){
     return(
@@ -26,6 +27,7 @@ export default function Router(){
                     <Route path='/tambah-mahasiswa' element={<TambahMahasiswa/>}/>
                     <Route path='/tambah-ruangan' element={<TambahRuangan/>}/>
                     <Route path='/tambah-dosen' element={<TambahDosen/>}/>
+                    <Route path='/edit-mahasiswa' element={<EditMahasiswa/>}/>
             </Routes>
         </>
     )

@@ -1,10 +1,25 @@
-import { useState,useContext } from "react"
+import { useState, useEffect, useContext } from "react"
 import { DataContext } from "../lib/DataContext"
 import MainLayout from "../components/MainLayout"
+import { handleEdit } from "../api/mahasiswaApi"
+import { useNavigate, useLocation } from 'react-router-dom'
 
 export default function EditMahasiswa(){
-    const { fetchData } = useContext(DataContext)
+    const location = useLocation()
+    const navigate = useNavigate()
+    const dataContext = useContext(DataContext)
+    const { fetchData } = dataContext
 
+    const { id } = location.state || {}
+
+    useEffect(()=> {
+        if(!location.state){
+            navigate('/daftar-mahasiswa')
+        }
+    },[location, navigate])
+
+    if (!location.state) return null;
+    
     const [nama, setNama] = useState('')
     const [nim, setNim] = useState('')
     const [prodi, setProdi] = useState('')
@@ -13,32 +28,11 @@ export default function EditMahasiswa(){
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
         try{
-            const response = await fetch('http://localhost:8080/mahasiswa',{
-                method: 'POST',
-                mode: "cors",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    nama_mhs: nama,
-                    nim: nim,
-                    prodi_mhs: prodi,
-                    thn_akademik: tahunAkademik,
-                    judul_skripsi : judulSkripsi
-                })
-            })
-            
+            await handleEdit(id, nama, nim, prodi, tahunAkademik, judulSkripsi)
             fetchData()
-            const result = await response.json()
-            console.log("Response", result)
+            navigate('/daftar-mahasiswa')
 
-            setNama('')
-            setNim('')
-            setProdi('')
-            setTahunAkademik('')
-            setJudulSkripsi('')
         }catch(e){
             console.error("Gagal Mengirim Data :", e)
         }
@@ -48,7 +42,7 @@ export default function EditMahasiswa(){
         <>
             <MainLayout>
                 <div className="w-full flex flex-col items-center">
-                    <h2 className="text-2xl font-semibold mt-4 mb-10">Tambah Mahasiswa</h2>
+                    <h2 className="text-2xl font-semibold mt-4 mb-10">Edit Mahasiswa</h2>
                     <form className="w-[70%] flex flex-col gap-7 border p-5 rounded-md" onSubmit={handleSubmit}>
                         <div className="flex flex-col">
                             <label htmlFor="nama_mhs" className="mb-2 font-semibold">Nama Mahasiswa</label>

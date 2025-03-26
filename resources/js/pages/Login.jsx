@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 export default function Login() {
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
     const navigate = useNavigate()
 
     const handleNavigate = () => {
@@ -22,8 +25,8 @@ export default function Login() {
                     className="flex flex-col px-16 py-10 w-fit rounded-lg border">
                     <h1 className="w-full my-5 font-semibold text-3xl text-center">Login Penjadwalan Sidang Tugas Akhir</h1>
                     <div className="flex flex-col gap-4 my-4">
-                        <input type="text" id="username" className="bg-slate-100 py-3 px-2 rounded md" placeholder="Username" required />
-                        <input type="text" id="username" className="bg-slate-100 py-3 px-2 rounded md" placeholder="Password" required />
+                        <input type="text" id="username" className="bg-slate-100 py-3 px-2 rounded md" placeholder="Username" required value={username} onChange={(e) => setUsername(e.target.value)}/>
+                        <input type="text" id="password" className="bg-slate-100 py-3 px-2 rounded md" placeholder="Password" required value={password} onChange={(e) => setPassword(e.target.value)}/>
                     </div>
                     <button className='bg-slate-600 text-white py-2 rounded-lg mt-10 mb-5 hover:opacity-70 ease-in-out transition-all duration-150' type='submit'>Login</button>
                     <div className="flex gap-2 items-center">

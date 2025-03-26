@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { DataContext } from "../lib/DataContext";
 import DeleteEditRow from "../components/DeleteEditRow";
 import { handleDelete } from "../api/mahasiswaApi";
+import { useNavigate } from 'react-router-dom';
 
 export default function DaftarMahasiswa() {
     const dataContext = useContext(DataContext)
@@ -15,6 +16,16 @@ export default function DaftarMahasiswa() {
         } catch (e) {
             console.error(e)
         }
+    }
+
+    const navigate = useNavigate()
+
+    const handleNavigateToEditPage = (id) => {
+        navigate('/edit-mahasiswa', {
+            state: {
+                id: id
+            }
+        })
     }
     return (
         <>
@@ -43,7 +54,7 @@ export default function DaftarMahasiswa() {
                                     <td className="p-4 border" >{mahasiswa.prodi_mhs}</td>
                                     <td className="p-4 border" >{mahasiswa.thn_akademik}</td>
                                     <td className="p-4 border" >{mahasiswa.judul_skripsi}</td>
-                                    <DeleteEditRow onDelete={() => handleDeleteWrapper(mahasiswa.id_mhs)} />
+                                    <DeleteEditRow onDelete={() => handleDeleteWrapper(mahasiswa.id_mhs)} onEdit={() => handleNavigateToEditPage(mahasiswa.id_mhs)}/>
                                 </tr>
                             ))}
                         </tbody>

@@ -3,10 +3,12 @@ import { useContext } from "react";
 import { DataContext } from "../lib/DataContext";
 import DeleteEditRow from "../components/DeleteEditRow";
 import { handleDelete } from '../api/dosenApi';
+import { useNavigate } from "react-router-dom"
 
 export default function DaftarDosen() {
     const dataContext = useContext(DataContext);
     const { dataDosen, fetchData } = dataContext;
+    const navigate = useNavigate()
 
     const handleDeleteWrapper = async(id) => {
         try {
@@ -17,7 +19,14 @@ export default function DaftarDosen() {
         }
     }
 
-    let no = 1;
+    const handleEditWrapper = (id) => {
+        navigate('/edit-dosen', {
+            state: {
+                id: id
+            }
+        })
+    }
+
     return (
         <>
             <MainLayout>
@@ -36,10 +45,10 @@ export default function DaftarDosen() {
                         <tbody>
                             {dataDosen.map((dosen, index) => (
                                 <tr key={index}>
-                                    <td className="p-4 border text-center">{no++}</td>
+                                    <td className="p-4 border text-center">{index + 1}</td>
                                     <td className="p-4 border">{dosen.nama_dosen}</td>
                                     <td className="p-4 border">{dosen.nip}</td>
-                                    <DeleteEditRow onDelete={() => handleDeleteWrapper(dosen.id_dosen)} />
+                                    <DeleteEditRow onDelete = {() => handleDeleteWrapper(dosen.id_dosen)} onEdit = {() => handleEditWrapper(dosen.id_dosen)}/>
                                 </tr>
                             ))}
                         </tbody>

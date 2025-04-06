@@ -7,9 +7,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 export default function EditMahasiswa(){
     const location = useLocation()
     const navigate = useNavigate()
-    const dataContext = useContext(DataContext)
-    const { fetchData } = dataContext
-
+    const { fetchData } = useContext(DataContext)
     const { id } = location.state || {}
 
     useEffect(()=> {
@@ -36,8 +34,8 @@ export default function EditMahasiswa(){
         }catch(e){
             console.error("Gagal Mengirim Data :", e)
         }
-
     }
+    
     return (
         <>
             <MainLayout>

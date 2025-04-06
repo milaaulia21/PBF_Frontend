@@ -3,22 +3,29 @@ import { useContext } from "react";
 import { DataContext } from "../lib/DataContext";
 import DeleteEditRow from "../components/DeleteEditRow";
 import { handleDelete } from "../api/ruanganApi";
+import { useNavigate } from "react-router-dom";
 
 export default function DaftarRuangan() {
   const dataContext = useContext(DataContext)
   const { dataRuangan, fetchData } = dataContext
-  console.log(dataRuangan)
 
-  let no = 1
-
-  const handleDeleteWrapper = async(id) => {
+  const navigate = useNavigate()
+  const handleDeleteWrapper = async (id) => {
     try {
-        await handleDelete(id)
-        fetchData()
+      await handleDelete(id)
+      fetchData()
     } catch (e) {
-        console.error(e)
+      console.error(e)
     }
-}
+  }
+
+  const handleEditWrapper = (id) => {
+    navigate('/edit-ruangan', {
+      state: {
+        id: id
+      }
+    })
+  }
 
   return (
     <>
@@ -39,10 +46,10 @@ export default function DaftarRuangan() {
               {dataRuangan.map((ruangan, index) => (
 
                 <tr className="" key={index}>
-                  <td className="p-4 border text-center">{no++}</td>
+                  <td className="p-4 border text-center">{index + 1}</td>
                   <td className="p-4 border text-center">{ruangan.kode_ruangan}</td>
                   <td className="p-4 border">{ruangan.nama_ruangan}</td>
-                  <DeleteEditRow  onDelete={() => handleDeleteWrapper(ruangan.id_ruangan)}/>
+                  <DeleteEditRow onDelete = {() => handleDeleteWrapper(ruangan.id_ruangan)} onEdit = {() => handleEditWrapper(ruangan.id_ruangan)}/>
                 </tr>
               ))}
             </tbody>

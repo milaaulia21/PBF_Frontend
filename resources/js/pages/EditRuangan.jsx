@@ -1,9 +1,23 @@
-import { useState, useContext } from "react"
+import { useState, useEffect, useContext } from "react"
 import { DataContext } from "../lib/DataContext"
 import MainLayout from "../components/MainLayout"
+import { handleEdit } from "../api/ruanganApi"
+import { useNavigate, useLocation } from 'react-router-dom'
 
 export default function EditRuangan(){
+    const location = useLocation()
+    const navigate = useNavigate()
     const { fetchData } = useContext(DataContext)
+    const { id } = location.state || {}
+
+    useEffect(()=> {
+        if(!location.state){
+            navigate('/daftar-ruangan')
+        }
+    },[location, navigate])
+
+    if (!location.state) return null;
+
     const [kodeRuangan, setKodeRuangan] = useState('')
     const [ruangan, setRuangan] = useState('')
 
@@ -11,30 +25,15 @@ export default function EditRuangan(){
         e.preventDefault()
 
         try{
-            const response = await fetch('http://localhost:8080/ruangan',{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    kode_ruangan: kodeRuangan,
-                    nama_ruangan: ruangan,
-                })
-            })
-
+            await handleEdit(id, kodeRuangan, ruangan)
             fetchData()
-            const result = await response.json()
-            console.log("Response", result)
+            navigate('/daftar-ruangan')
 
-            setRuangan('')
-            setKodeRuangan('')
-
-            
         }catch(e){
             console.error("Gagal Mengirim Data :", e)
         }
-
     }
+
     return (
         <>
             <MainLayout>

@@ -12,7 +12,7 @@ export default function Sidebar() {
 
             <h3 className='ms-5 text-sm font-bold text-slate-800 mb-5 mt-3'>Pages</h3>
             <div className='flex flex-col gap-4'>
-                <Menus name='Home' icon={<FaHome />} />
+                <Menus name='Home' navigate='landing-page' icon={<FaHome />} />
                 <Menus name='Jadwal Sidang' navigate='jadwal-sidang' icon={<IoTimeOutline />} />
             </div>
             <h3 className='ms-5 text-sm font-bold text-slate-800 m-5'>List</h3>

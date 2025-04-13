@@ -39,15 +39,18 @@ export const handleRegister = async (username, password) => {
             },
             body: JSON.stringify({
                 username: username,
-                password: password
+                password: password,
+                role: 'mahasiswa'
             })
         })
 
+        const data = await res.json()
+
         if(!res.ok){
-            alert('Username Sudah Digunakan')
+            throw new Error(data?.message || 'Username sudah digunakan');
         }
 
-        return await res.json()
+        return data
     } catch (e) {
         console.error('Gagal Register :', e)
     }

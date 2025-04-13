@@ -3,34 +3,27 @@ import { useNavigate } from 'react-router-dom'
 import { handleRegister } from '../api/JWTAuthApi'
 
 export default function Register() {
-    const [ username, setUsername ] = useState('')
-    const [ password, setPassword ] = useState('')
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
 
     const navigate = useNavigate()
 
-    const handleNavigate = async () => {
-        try{
-            const res = await handleRegister(username, password)
-
-            if(!res.ok) return
-            
-            navigateToLoginPage()
-        }catch(e){
-            alert(e.message)
-            console.error('Gagal Register :', e)
+    const handleRegisterWrapper = async () => {
+        try {
+            const res = await handleRegister(username, password);
+            alert(res?.message || 'Gagal register');
+            navigate('/')
+        } catch (e) {
+            alert(e.message || 'Terjadi kesalahan saat registrasi');
         }
-    }
-
-    const navigateToLoginPage = () => {
-        navigate('/landing-page')
-    }
+    };
 
     return (
         <div className="min-h-[100dvh] min-w-[100dvw] flex justify-center items-center">
             <div className="w-full flex justify-center">
                 <form onSubmit={(e) => {
                     e.preventDefault()
-                    handleNavigate()
+                    handleRegisterWrapper()
                 }
                 }
                     className="flex flex-col px-16 py-10 w-[40rem] rounded-lg border">
@@ -45,7 +38,7 @@ export default function Register() {
                         <p className="">OR</p>
                         <div className="bg-slate-300 w-full h-[1px]"></div>
                     </div>
-                    <button type="button" className='bg-white border border-slate-700 text-slate-600 py-2 rounded-lg my-5 hover:bg-slate-800 hover:text-white ease-in-out transition-all duration-150' onClick={navigateToLoginPage}>Login</button>
+                    <button type="button" className='bg-white border border-slate-700 text-slate-600 py-2 rounded-lg my-5 hover:bg-slate-800 hover:text-white ease-in-out transition-all duration-150' onClick={() => navigateToLoginPage()}>Login</button>
                     <a className="text-xs text-sky-500 underline hover:opacity-70 ease-in-out transition-all duration-150">Forgot Password?</a>
                 </form>
             </div>

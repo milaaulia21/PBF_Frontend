@@ -8,9 +8,9 @@ export default function Menus(props) {
     }
 
     return(
-        <ul className="flex gap-5 ms-8 items-center py-2 ps-2 w-[80%] hover:bg-slate-900 hover:scale-105 transition-all duration-150 ease-in-out rounded-md" onClick={handleNavigate}>
-            <li className="text-white">{props.icon}</li>
-            <li className="text-white text-sm">{props.name}</li>
+        <ul className="flex gap-5 ms-8 items-center py-2 ps-2 w-[80%] hover:bg-slate-700 hover:scale-105 transition-all duration-150 ease-in-out rounded-md" onClick={handleNavigate}>
+            <li className="text-white text-sm">{props.icon}</li>
+            <li className="text-white text-xs">{props.name}</li>
         </ul>
     )
 }

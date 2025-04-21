@@ -47,7 +47,7 @@ export default function TambahMahasiswa() {
         <>
             <MainLayout>
                 <div className="w-full flex flex-col items-center">
-                    <h2 className="text-2xl font-semibold mt-4 mb-10">Tambah Mahasiswa</h2>
+                    <h2 className="text-2xl font-semibold my-8 mb-10">Tambah Mahasiswa</h2>
                     <form className="w-[70%] flex flex-col gap-7 border p-5 rounded-md" onSubmit={handleSubmit}>
                         <div className="flex flex-col">
                             <label htmlFor="nama_mhs" className="mb-2 font-semibold">Nama Mahasiswa</label>

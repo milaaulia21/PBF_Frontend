@@ -6,6 +6,7 @@ import { FaCalendarDay } from "react-icons/fa"
 import { FaGear } from 'react-icons/fa6'
 import { CiClock2, CiGlobe, CiLogout } from 'react-icons/ci'
 import { IoIosInformationCircle } from 'react-icons/io'
+import { handleLogout } from '../api/JWTAuthApi'
 
 export default function Sidebar() {
     return (
@@ -73,7 +74,10 @@ export default function Sidebar() {
                     <span>Asia/Jakarta</span>
                 </p>
 
-                <button className='text-red-600 w-fit flex gap-5 items-center justify-center self-end hover:bg-slate-800 hover:scale-105 py-2 px-3 me-2 rounded transition-all duration-150 ease-in-out'>
+                <button 
+                    className='text-red-600 w-fit flex gap-5 items-center justify-center self-end hover:bg-slate-800 hover:scale-105 py-2 px-3 me-2 rounded transition-all duration-150 ease-in-out'
+                    onClick={() => handleLogout()}
+                >
                     <span className='text-xs'><CiLogout /></span>
                     <span className='text-xs'>Logout</span>
                 </button>

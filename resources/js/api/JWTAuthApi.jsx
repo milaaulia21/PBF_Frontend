@@ -55,3 +55,8 @@ export const handleRegister = async (username, password) => {
         console.error('Gagal Register :', e)
     }
 }
+
+export const handleLogout = () => {
+    localStorage.removeItem('token')
+    window.location.reload()
+}

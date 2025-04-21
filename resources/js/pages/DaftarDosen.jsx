@@ -31,10 +31,10 @@ export default function DaftarDosen() {
         <>
             <MainLayout>
                 <div className="w-full flex flex-col items-center">
-                    <h2 className="text-2xl font-semibold mt-4 mb-10">Daftar Dosen</h2>
+                    <h2 className="text-2xl font-semibold my-8 mb-10">Daftar Dosen</h2>
                     <table className="border w-[70%] mb-10">
                         <thead>
-                            <tr className="border bg-slate-500 text-white">
+                            <tr className="border bg-slate-800 text-white rounded-md">
                                 <th className="p-4 border w-12 text-center">No</th>
                                 <th className="p-4 border w-1/2 text-center">Nama Dosen</th>
                                 <th className="p-4 border w-1/2 text-center">NIP</th>

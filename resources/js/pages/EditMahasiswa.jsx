@@ -40,7 +40,7 @@ export default function EditMahasiswa(){
         <>
             <MainLayout>
                 <div className="w-full flex flex-col items-center">
-                    <h2 className="text-2xl font-semibold mt-4 mb-10">Edit Mahasiswa</h2>
+                    <h2 className="text-2xl font-semibold my-8 mb-10">Edit Mahasiswa</h2>
                     <form className="w-[70%] flex flex-col gap-7 border p-5 rounded-md" onSubmit={handleSubmit}>
                         <div className="flex flex-col">
                             <label htmlFor="nama_mhs" className="mb-2 font-semibold">Nama Mahasiswa</label>
@@ -67,7 +67,7 @@ export default function EditMahasiswa(){
                             <label htmlFor="judul_skripsi" className="mb-2 font-semibold">Judul Skripsi</label>
                             <input type="year" id="judul_skripsi" name="judul_skripsi" placeholder="Masukkan Judul Skripsi" className="p-2 bg-slate-100 rounded-md" value={judulSkripsi} onChange={(e) => setJudulSkripsi(e.target.value)}/>
                         </div>
-                        <button className="bg-slate-700 self-center text-white py-2 px-3 rounded-md hover:scale-105 hover:opacity-80 transition-all duration-150 ease-in-out" type="submit">Tambah Mahasiswa</button>
+                        <button className="bg-slate-800 self-center text-white py-2 px-3 rounded-md hover:scale-105 hover:opacity-80 transition-all duration-150 ease-in-out" type="submit">Tambah Mahasiswa</button>
                     </form>
                 </div>
             </MainLayout>

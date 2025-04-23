@@ -47,3 +47,29 @@ export const handleEdit = async (id, nama, nim , prodi, tahunAkademik, judulSkri
         throw e
     } 
 }
+
+export const handleSubmit = async (nama, nim, prodi, tahunAkademik, judulSkripsi) => {
+    try {
+        const response = await fetch('http://localhost:8080/mahasiswa', {
+            method: 'POST',
+            mode: "cors",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nama_mhs: nama,
+                nim: nim,
+                prodi_mhs: prodi,
+                thn_akademik: tahunAkademik,
+                judul_skripsi: judulSkripsi
+            })
+        })
+
+        fetchData()
+        const result = await response.json()
+        console.log("Response", result)
+    } catch (e) {
+        console.error("Gagal Mengirim Data :", e)
+    }
+
+}

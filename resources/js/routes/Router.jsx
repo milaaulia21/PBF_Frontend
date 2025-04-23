@@ -7,13 +7,13 @@ import JadwalSidang from '../pages/JadwalSidang'
 import DaftarDosen from '../pages/DaftarDosen'
 import DaftarMahasiswa from '../pages/DaftarMahasiswa'
 import DaftarRuangan from '../pages/DaftarRuangan'
-import TambahMahasiswa from '../pages/TambahMahasiswa'
 import TambahRuangan from '../pages/TambahRuangan'
-import TambahDosen from '../pages/TambahDosen'
 import Register from '../pages/Register'
 import EditMahasiswa from '../pages/EditMahasiswa'
 import EditRuangan from '../pages/EditRuangan'
 import EditDosen from '../pages/EditDosen'
+import DosenRegister from '../pages/DosenRegister'
+import MahasiswaRegister from '../pages/MahasiswaRegister'
 
 export default function Router() {
     return (
@@ -22,7 +22,9 @@ export default function Router() {
                 {/* Public Routes */}
                 <Route element={<PublicRoute />}>
                     <Route path="/" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
+                    <Route path='/register' element={<Register />} />
+                    <Route path='/register/dosen-register' element={<DosenRegister />} />
+                    <Route path='/register/mahasiswa-register' element={<MahasiswaRegister />} />
                 </Route>
 
                 {/* Protected Routes */}
@@ -32,9 +34,7 @@ export default function Router() {
                     <Route path="/list-dosen" element={<DaftarDosen />} />
                     <Route path="/list-mahasiswa" element={<DaftarMahasiswa />} />
                     <Route path="/list-ruangan" element={<DaftarRuangan />} />
-                    <Route path="/tambah-mahasiswa" element={<TambahMahasiswa />} />
                     <Route path="/tambah-ruangan" element={<TambahRuangan />} />
-                    <Route path="/tambah-dosen" element={<TambahDosen />} />
                     <Route path="/edit-mahasiswa" element={<EditMahasiswa />} />
                     <Route path="/edit-ruangan" element={<EditRuangan />} />
                     <Route path="/edit-dosen" element={<EditDosen />} />

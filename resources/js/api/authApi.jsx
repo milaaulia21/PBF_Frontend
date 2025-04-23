@@ -4,7 +4,8 @@ export const handleLogin = async (username, password) => {
             method: 'POST',
             mode: 'cors',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization ' : 'Bearer ' + localStorage.getItem('token')
             },
             body: JSON.stringify({
                 username,
@@ -29,7 +30,7 @@ export const handleLogin = async (username, password) => {
 }
 
 
-export const handleRegister = async (username, password) => {
+export const handleRegister = async (username, password, role) => {
     try {
         const res = await fetch('http://localhost:8080/auth/register', {
             method: 'POST',
@@ -40,7 +41,7 @@ export const handleRegister = async (username, password) => {
             body: JSON.stringify({
                 username: username,
                 password: password,
-                role: 'mahasiswa'
+                role: role
             })
         })
 

@@ -45,3 +45,25 @@ export const handleEdit = async (id, nama, nip) => {
     } 
   }
 
+  export const handleSubmit = async (nama, nip) => {
+    try{
+        const response = await fetch('http://localhost:8080/dosen',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nama_dosen: nama,
+                nip: nip,
+            })
+        })
+        
+        fetchData()
+        const result = await response.json()
+        console.log("Response", result)
+
+    }catch(e){
+        console.error("Gagal Mengirim Data :", e)
+    }
+
+}

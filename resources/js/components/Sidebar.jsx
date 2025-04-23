@@ -6,7 +6,7 @@ import { FaCalendarDay } from "react-icons/fa"
 import { FaGear } from 'react-icons/fa6'
 import { CiClock2, CiGlobe, CiLogout } from 'react-icons/ci'
 import { IoIosInformationCircle } from 'react-icons/io'
-import { handleLogout } from '../api/JWTAuthApi'
+import { handleLogout } from '../api/authApi'
 
 export default function Sidebar() {
     return (
@@ -29,7 +29,6 @@ export default function Sidebar() {
 
                 <div className='flex flex-col border-b border-slate-700 pb-3'>
                     <Menus name='List Dosen' navigate='list-dosen' icon={<FaClipboardList />} />
-                    <Menus name='Tambah Dosen' navigate='tambah-dosen' icon={<FaPlus />} />
                 </div>
 
                 <h3 className='ms-5 text-xs font-semibold text-slate-100 mt-3 mb-2 w-fit flex justify-center items-center gap-5'>
@@ -39,7 +38,6 @@ export default function Sidebar() {
 
                 <div className='flex flex-col border-b border-slate-700 pb-3'>
                     <Menus name='List Mahasiswa' navigate='list-mahasiswa' icon={<FaClipboardList />} />
-                    <Menus name='Tambah Mahasiswa' navigate='tambah-mahasiswa' icon={<FaPlus />} />
                 </div>
 
                 <h3 className='ms-5 text-xs font-semibold text-slate-100 mt-3 mb-2 w-fit flex justify-center items-center gap-5'>

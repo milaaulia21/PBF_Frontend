@@ -1,6 +1,7 @@
 import MainLayout from "../components/MainLayout";
 import { useContext } from "react";
 import { DataContext } from "../lib/DataContext";
+import { GoPlus } from "react-icons/go";
 
 export default function JadwalSidang() {
     const context = useContext(DataContext)
@@ -12,12 +13,12 @@ export default function JadwalSidang() {
         <>
             <MainLayout>
                 <div className="min-h-[90vh] min-w-full flex flex-col items-center gap-6">
-                    <h1 className="text-2xl font-semibold mt-4 mb-10">Jadwal Sidang</h1>
-                    <div className="w-[70%] flex flex-col">
-                        <button className="bg-slate-700 text-white py-2 px-3 rounded-md hover:scale-105 hover:opacity-80 transition-all duration-150 ease-in-out self-end mb-5">Daftar Sidang</button>
-                        <table className="w-full">
-                            <thead>
-                                <tr className="border bg-slate-500 text-white">
+                    <h1 className="text-2xl font-semibold my-8">Jadwal Sidang</h1>
+                    <div className="max-h-[60dvh]">
+                        <button className="bg-slate-800 text-white py-3 pr-9 pl-6 rounded-full hover:scale-105 hover:opacity-80 transition-all duration-150 ease-in-out self-end mb-5 flex gap-2 justify-center items-center"><GoPlus/> Daftar</button>
+                        <table className="w-full relative">
+                            <thead className="sticky top-0">
+                                <tr className="border bg-slate-800 text-white">
                                     <th className="p-4 border w-12 text-center">No</th>
                                     <th className="p-4 border w-fit text-center">Nama Mahasiswa</th>
                                     <th className="p-4 border w-fit text-center">Nama Ruangan</th>

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { handleRegister } from '../api/authApi'
 import { handleSubmit } from '../api/mahasiswaApi'
 
 export default function MahasiswaRegister() {
@@ -15,7 +14,7 @@ export default function MahasiswaRegister() {
     const handleRegisterWrapper = async () => {
         try {
             const res = await handleSubmit(nama, nim, prodi, tahunAkademik, judulSkripsi)
-            alert(res?.message || 'Gagal register');
+            console.log(res)
             navigate('/')
         } catch (e) {
             alert(e.message || 'Terjadi kesalahan saat registrasi');

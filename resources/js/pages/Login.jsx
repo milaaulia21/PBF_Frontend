@@ -1,13 +1,15 @@
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { handleLogin } from '../api/authApi'
+import { getProfile, handleLogin } from '../api/authApi'
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md'
+import { useAuth } from '../lib/AuthContext'
 
 export default function Login() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const navigate = useNavigate()
+    const { setProfile } = useAuth()
 
     const handleLoginWrapper = async (e) => {
         e.preventDefault()
@@ -19,11 +21,22 @@ export default function Login() {
                 return;
             }
 
-            if (res.redirect) {
+            localStorage.setItem('token', res.token)
+            localStorage.setItem('role', res.role)
+
+            const profileRes = await getProfile()
+            if (profileRes && profileRes.user) {
+                setProfile(profileRes.user)
+            }
+
+            const validTarget = ['dosen', 'mahasiswa']
+
+            if (res.redirect && validTarget.includes(res.target)) {
                 navigate(`/register/${res.target}-register`);
             } else {
                 navigate('/landing-page');
             }
+
 
         } catch (e) {
             alert(e.message)

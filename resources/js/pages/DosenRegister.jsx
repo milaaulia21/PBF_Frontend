@@ -1,18 +1,23 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { handleRegister } from '../api/authApi'
 import { handleSubmit } from '../api/dosenApi'
+import { jwtDecode } from 'jwt-decode'
 
 export default function DosenRegister() {
     const [nama, setNama] = useState('')
     const [nip, setNip] = useState('')
+
+    const token = localStorage.getItem('token')
+    const decodedToken = token ? jwtDecode(token) : null
+
+    console.log('decode :', decodedToken)
 
     const navigate = useNavigate()
 
     const handleRegisterWrapper = async () => {
         try {
             const res = await handleSubmit(nama, nip)
-            alert(res?.message || 'Gagal register');
+            console.log(res)
             navigate(`/`)
         } catch (e) {
             alert(e.message || 'Terjadi kesalahan saat registrasi');
@@ -33,17 +38,14 @@ export default function DosenRegister() {
                     }
                     }>
                     <div className="flex flex-col space-y-6 my-4">
-
                         <div className='space-y-2'>
                             <label htmlFor="username" className='block font-medium text-sm text-slate-700'>Nama</label>
                             <input type="text" id="username" className="border w-full px-4 py-2 border-slate-300 rounded-lg focus:ring-2" placeholder="JohnDoe123" value={nama} onChange={(e) => setNama(e.target.value)} required />
                         </div>
-
                         <div className='space-y-2'>
                             <label htmlFor="username" className='block font-medium text-sm text-slate-700'>Nomor Induk Pengajar</label>
                             <input type="text" id="username" className="border w-full px-4 py-2 border-slate-300 rounded-lg focus:ring-2" placeholder="12345678" value={nip} onChange={(e) => setNip(e.target.value)} required />
                         </div>
-
                     </div>
                     <button className='w-full bg-slate-900 text-white py-3 rounded-lg font-medium self-center px-9 mb-5 mt-10 hover:opacity-70 ease-in-out transition-all duration-150 focus:ring-2 focus:ring-offset-2 focus:ring-slate-600' type='submit'>BUAT AKUN</button>                  
                 </form>

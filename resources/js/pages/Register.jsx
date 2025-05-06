@@ -32,9 +32,9 @@ export default function Register() {
             return;
         }
 
-        await handleRegister
+        await handleRegister(username, password, role)
 
-        navigate(`/register/${role}-register`);
+        navigate(`/`);
     };
 
     return (

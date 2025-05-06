@@ -29,7 +29,7 @@ export default function DataProvider({ children }) {
                 ruangan.json(),
             ]);
 
-            setDataDosen(dosenData);
+            setDataDosen(dosenData.data);
             setDataMahasiswa(mahasiswaData);
             setDataSidang(sidangData);
             setDataRuangan(ruanganData);

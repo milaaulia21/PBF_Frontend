@@ -5,7 +5,6 @@ export const handleLogin = async (username, password) => {
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization ' : 'Bearer ' + localStorage.getItem('token')
             },
             body: JSON.stringify({
                 username,
@@ -59,5 +58,30 @@ export const handleRegister = async (username, password, role) => {
 
 export const handleLogout = () => {
     localStorage.removeItem('token')
+    localStorage.removeItem('role')
     window.location.reload()
+}
+
+export const getProfile = async () => {
+    try{
+        const token = localStorage.getItem('token')
+        const res = await fetch('http://localhost:8080/auth/profile', {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+
+        const data = await res.json()
+
+        if(!res.ok){
+            throw new Error(data?.message || 'Gagal mengambil data profile');
+        }
+
+        return data
+    }catch(e){
+        console.error('Gagal mengambil data profile :', e)
+    }
 }

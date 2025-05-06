@@ -8,12 +8,12 @@ import { CiClock2, CiGlobe, CiLogout } from 'react-icons/ci'
 import { IoIosInformationCircle } from 'react-icons/io'
 import { handleLogout } from '../api/authApi'
 
-export default function Sidebar() {
+export default function Sidebar(props) {
     return (
         <aside className="flex flex-col h-screen w-[18dvw] bg-slate-900 overflow-y-auto">
             <div className=" flex flex-col p-5 border-b border-slate-700 gap-2">
                 <h1 className="text-xl text-white font-bold">MySidang.com</h1>
-                <p className="text-slate-400 text-sm mt-1">Hi Username! 👋</p>
+                <p className="text-slate-400 text-sm mt-1">Hi {props.username}! 👋</p>
             </div>
 
             <div className='flex-1'>

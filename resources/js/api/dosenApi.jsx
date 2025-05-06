@@ -1,3 +1,5 @@
+import { jwtDecode } from "jwt-decode";
+
 export const handleDelete = async (id) => {
     try {
         const response = await fetch(`http://localhost:8080/dosen/${id}`, {
@@ -46,6 +48,8 @@ export const handleEdit = async (id, nama, nip) => {
   }
 
   export const handleSubmit = async (nama, nip) => {
+    const token = localStorage.getItem('token')
+    const decodedToken = token ? jwtDecode(token) : null
     try{
         const response = await fetch('http://localhost:8080/dosen',{
             method: 'POST',
@@ -55,10 +59,10 @@ export const handleEdit = async (id, nama, nip) => {
             body: JSON.stringify({
                 nama_dosen: nama,
                 nip: nip,
+                id_user: parseInt(decodedToken.data.id_user)
             })
         })
         
-        fetchData()
         const result = await response.json()
         console.log("Response", result)
 

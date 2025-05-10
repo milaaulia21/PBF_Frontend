@@ -14,6 +14,7 @@ import EditRuangan from '../pages/EditRuangan'
 import EditDosen from '../pages/EditDosen'
 import DosenRegister from '../pages/DosenRegister'
 import MahasiswaRegister from '../pages/MahasiswaRegister'
+import Profile from '../pages/Profile'
 
 export default function Router() {
     return (
@@ -38,6 +39,7 @@ export default function Router() {
                     <Route path="/edit-mahasiswa" element={<EditMahasiswa />} />
                     <Route path="/edit-ruangan" element={<EditRuangan />} />
                     <Route path="/edit-dosen" element={<EditDosen />} />
+                    <Route path="/profile" element={<Profile />} />
                 </Route>
             </Routes>
         </>

@@ -6,7 +6,8 @@ import { useAuth } from "../lib/AuthContext";
 import { handleDaftarSidang, updateStatusSidang } from "../api/sidangApi";
 import { FaCheck } from "react-icons/fa";
 import { MdOutlineFileDownload } from "react-icons/md";
-import * as XLSX from 'xlsx'
+import { jsPDF } from 'jspdf'
+import { autoTable } from 'jspdf-autotable'
 
 export default function JadwalSidang() {
     const { dataSidang, dataMahasiswa, dataRuangan, fetchData } = useContext(DataContext);
@@ -20,12 +21,34 @@ export default function JadwalSidang() {
     const role = localStorage.getItem('role')
     const isMahasiswa = role === "mahasiswa"
 
-    const exportJadwalSidangToExcel = () => {
-        const worksheet = XLSX.utils.json_to_sheet(dataSidang)
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+    const exportJadwalSidangToPDF = () => {
+        const doc = new jsPDF();
 
-        XLSX.writeFile(workbook, 'data.xlsx');
+        doc.text("Jadwal Sidang Mahasiswa", 14, 10);
+
+        autoTable(doc, {
+            startY: 20,
+            head: [[
+                "ID Sidang",
+                "ID Mahasiswa",
+                "ID Ruangan",
+                "Tanggal",
+                "Mulai",
+                "Selesai",
+                "Status"
+            ]],
+            body: dataSidang.map(row => [
+                row.id_sidang,
+                row.id_mhs,
+                row.id_ruangan,
+                row.tanggal_sidang,
+                row.waktu_mulai,
+                row.waktu_selesai,
+                row.status
+            ]),
+        });
+
+        doc.save("jadwal-sidang.pdf");
     }
 
     const handleDaftarSidangWrapper = async () => {
@@ -55,7 +78,7 @@ export default function JadwalSidang() {
 
                         <button
                             className={`absolute left-0 bg-slate-800 text-white py-2 px-4 rounded-full flex items-center gap-2 hover:scale-105 hover:opacity-80 transition-all ${!isMahasiswa && 'hidden'}`}
-                            onClick={() => exportJadwalSidangToExcel()}
+                            onClick={() => exportJadwalSidangToPDF()}
                         >
                             <MdOutlineFileDownload className="text-lg" /> Download
                         </button>

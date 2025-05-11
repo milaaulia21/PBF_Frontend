@@ -13,7 +13,7 @@ export default function MainLayout({children}){
     console.log(profile)
 
     return(
-        <div className="q-screen h-screen flex">
+        <div className="w-screen h-screen flex">
             <Sidebar username={role === "mahasiswa" ? profile.nama_mhs : profile.nama_dosen}/>
             <div className="flex-1 flex flex-col overflow-hidden">
                 <Navbar 

@@ -24,9 +24,6 @@ export default function LandingPage() {
                             </button>
                         </div>
                     </div>
-                    <div className=" min-w-full flex items-center justify-center gap-16 bg-slate-100">
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum amet deserunt distinctio perferendis repudiandae. Architecto enim vero dolorum repellat nam repellendus consequatur hic impedit natus ea, rerum id voluptas saepe fuga iste, nulla ex debitis? Sint excepturi, itaque architecto debitis iste eveniet odio ab, quaerat amet quidem expedita in libero quod quo? Velit dolorum nulla qui magni nisi enim dolorem illum numquam laudantium repellat, delectus suscipit, unde possimus necessitatibus facilis eaque maxime soluta perspiciatis tempora vitae, vero sapiente aliquid in. Delectus consequatur, suscipit omnis nostrum mollitia consequuntur, nemo dolorem et quaerat porro voluptates quibusdam molestiae fuga maiores quisquam, reprehenderit temporibus.</p>
-                    </div>
                 </div>
             </MainLayout>
         </div>

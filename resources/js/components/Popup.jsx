@@ -12,7 +12,11 @@ const Popup = (props) => {
                 </h2>
             </div>
             <h3 className='font-semibold mt-2'>{props.username}</h3>
-            <p className='text-xs text-slate-400'>Admin</p>
+            {props.isAdmin === 'Y'? (
+                <p className='text-xs text-slate-400'>Admin</p>
+            ): (
+                <p className='text-xs text-slate-400'>User</p>
+            )}
             <div className='w-full text-sm flex flex-col gap-2 mt-4 border-t pt-3'>
                 <p>{props.role}</p>
                 <p>{props.roleId}</p>

@@ -4,10 +4,18 @@ import { DataContext } from "../lib/DataContext";
 import DeleteEditRow from "../components/DeleteEditRow";
 import { handleDelete } from '../api/dosenApi';
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../lib/AuthContext";
 
 export default function DaftarDosen() {
     const { dataDosen, fetchData } = useContext(DataContext);
     const navigate = useNavigate();
+    const { profile } = useAuth()
+
+    if (!profile) {
+        return <h1>Loading...</h1>
+    }
+
+    console.log(profile)
 
     const handleDeleteWrapper = async (id) => {
         try {
@@ -35,8 +43,8 @@ export default function DaftarDosen() {
                                 <th className="p-3 border w-12">No</th>
                                 <th className="p-3 border">Nama Dosen</th>
                                 <th className="p-3 border">NIP</th>
-                                <th className="p-3 border">Edit</th>
-                                <th className="p-3 border">Del</th>
+                                <th className={`p-3 border ${profile.isAdmin === 'Y' ? '' : 'hidden'}`}>Edit</th>
+                                <th className={`p-3 border ${profile.isAdmin === 'Y' ? '' : 'hidden'}`}>Del</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,6 +57,7 @@ export default function DaftarDosen() {
                                         <DeleteEditRow
                                             onDelete={() => handleDeleteWrapper(dosen.id_dosen)}
                                             onEdit={() => handleEditWrapper(dosen.id_dosen)}
+                                            isAdmin={profile.isAdmin}
                                         />
                                     </tr>
                                 ))

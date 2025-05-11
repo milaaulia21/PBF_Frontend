@@ -10,6 +10,8 @@ export default function MainLayout({children}){
         return <div>Loading...</div>
     }
 
+    console.log(profile)
+
     return(
         <div className="q-screen h-screen flex">
             <Sidebar username={role === "mahasiswa" ? profile.nama_mhs : profile.nama_dosen}/>
@@ -18,7 +20,7 @@ export default function MainLayout({children}){
                     username={role === "mahasiswa" ? profile.nama_mhs : profile.nama_dosen}
                     role={role}
                     roleId={role=== "mahasiswa" ? profile.nim : profile.nip}
-
+                    isAdmin={profile.isAdmin}
                     />
                 <div className="flex-1 overflow-y-auto">
                     {children}

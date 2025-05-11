@@ -4,9 +4,15 @@ import { DataContext } from "../lib/DataContext";
 import DeleteEditRow from "../components/DeleteEditRow";
 import { handleDelete } from "../api/mahasiswaApi";
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../lib/AuthContext";
 
 export default function DaftarMahasiswa() {
     const { dataMahasiswa, fetchData } = useContext(DataContext);
+    const { profile } = useAuth()
+
+    if (!profile) {
+        return <h1>Loading...</h1>
+    }
 
     const navigate = useNavigate();
 
@@ -39,8 +45,8 @@ export default function DaftarMahasiswa() {
                                 <th className="p-3 border">Program Studi</th>
                                 <th className="p-3 border">Tahun Akademik</th>
                                 <th className="p-3 border">Judul Skripsi</th>
-                                <th className="p-3 border">Edit</th>
-                                <th className="p-3 border">Del</th>
+                                <th className={`p-3 border ${profile.isAdmin === 'Y' ? '' : 'hidden'}`}>Edit</th>
+                                <th className={`p-3 border ${profile.isAdmin === 'Y' ? '' : 'hidden'}`}>Del</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,6 +62,7 @@ export default function DaftarMahasiswa() {
                                         <DeleteEditRow
                                             onDelete={() => handleDeleteWrapper(mahasiswa.id_mhs)}
                                             onEdit={() => handleEditWrapper(mahasiswa.id_mhs)}
+                                            isAdmin={profile.isAdmin}
                                         />
                                     </tr>
                                 ))

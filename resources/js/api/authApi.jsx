@@ -13,7 +13,6 @@ export const handleLogin = async (username, password) => {
         })
 
         const data = await res.json()
-        console.log(data)
         localStorage.setItem('token', data.token)
 
         if (!res.ok) {

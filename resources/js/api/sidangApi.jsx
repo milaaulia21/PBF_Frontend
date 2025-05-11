@@ -23,3 +23,24 @@ export const handleDaftarSidang = async (profile) => {
         throw e
     }
 }
+
+export const updateStatusSidang = async (id, status) => {
+    try{
+        const response = await fetch(`http://localhost:8080/sidang/update-status/${id}`, {
+            method: 'PUT',
+            mode: "cors",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                status : status
+            })
+        })
+
+        const result = await response.json()
+        console.log(result)
+        return result
+    }catch(e){
+        console.error('Gagal Mengupdate Data :', e)
+    }
+}

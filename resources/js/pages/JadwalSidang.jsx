@@ -1,15 +1,19 @@
 import MainLayout from "../components/MainLayout";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { DataContext } from "../lib/DataContext";
 import { GoPlus } from "react-icons/go";
 import { useAuth } from "../lib/AuthContext";
-import { handleDaftarSidang } from "../api/sidangApi";
+import { handleDaftarSidang, updateStatusSidang } from "../api/sidangApi";
+import { FaCheck } from "react-icons/fa";
 
 export default function JadwalSidang() {
     const { dataSidang, dataMahasiswa, dataRuangan, fetchData } = useContext(DataContext);
-
     const { profile } = useAuth();
-    console.log(profile)
+    const [statusSidang, setStatusSidang] = useState(dataSidang.status)
+
+    if (!profile) {
+        return <h1>Loading</h1>
+    }
 
     const role = localStorage.getItem('role')
     const isMahasiswa = role === "mahasiswa"
@@ -19,6 +23,15 @@ export default function JadwalSidang() {
             const res = await handleDaftarSidang(profile)
             console.log(res)
             fetchData()
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
+    const handleUpdateStatusWrapper = async (id) => {
+        try {
+            const res = await updateStatusSidang(id, statusSidang)
+            console.log(res)
         } catch (e) {
             console.error(e)
         }
@@ -64,7 +77,33 @@ export default function JadwalSidang() {
                                                 <td className="p-3 border">{sidang.tanggal_sidang}</td>
                                                 <td className="p-3 border">{sidang.waktu_mulai}</td>
                                                 <td className="p-3 border">{sidang.waktu_selesai}</td>
-                                                <td className="p-3 border">{sidang.status}</td>
+                                                {
+                                                    isMahasiswa ? (
+                                                        <td className="p-3 border">{sidang.status}</td>
+                                                    ) : (
+                                                        <td className="p-3 border">
+                                                            <form onSubmit={(e) => {
+                                                                e.preventDefault()
+                                                                handleUpdateStatusWrapper(sidang.id_sidang)
+                                                            }}>
+                                                                <select
+                                                                    className="border border-gray-300 rounded p-2"
+                                                                    value={statusSidang}
+                                                                    onChange={(e) => {
+                                                                        setStatusSidang(e.target.value)
+                                                                    }}
+                                                                >
+                                                                    <option value="DITUNDA">DITUNDA</option>
+                                                                    <option value="DIJADWALKAN">DJADWALKAN</option>
+                                                                    <option value="DIBATALKAN">DIBATALKAN</option>
+                                                                </select>
+                                                                <button type="submit" className="ml-2 rounded-md border border-slate-900 p-2 hover:bg-slate-900 hover:text-white transition-all duration-150 ease-in-out">
+                                                                    <FaCheck />
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    )
+                                                }
                                             </tr>
                                         );
                                     })

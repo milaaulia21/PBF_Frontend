@@ -7,8 +7,11 @@ import { FaGear } from 'react-icons/fa6'
 import { CiClock2, CiGlobe, CiLogout } from 'react-icons/ci'
 import { IoIosInformationCircle } from 'react-icons/io'
 import { handleLogout } from '../api/authApi'
+import { useAuth } from '../lib/AuthContext'
 
 export default function Sidebar(props) {
+    const { profile } = useAuth()
+    const isAdmin = profile.isAdmin === 'Y' ? true : false
     return (
         <aside className="flex flex-col h-screen w-[18dvw] bg-slate-900 overflow-y-auto">
             <div className=" flex flex-col p-5 border-b border-slate-700 gap-2">
@@ -45,10 +48,18 @@ export default function Sidebar(props) {
                     <span>RUANGAN</span>
                 </h3>
 
-                <div className='flex flex-col border-b border-slate-700 pb-3'>
-                    <Menus name='List Ruangan' navigate='list-ruangan' icon={<FaClipboardList />} />
-                    <Menus name='Tambah Ruangan' navigate='tambah-ruangan' icon={<FaPlus />} />
-                </div>
+                {
+                    isAdmin ? (
+                        <div className='flex flex-col border-b border-slate-700 pb-3'>
+                            <Menus name='List Ruangan' navigate='list-ruangan' icon={<FaClipboardList />} />
+                            <Menus name='Tambah Ruangan' navigate='tambah-ruangan' icon={<FaPlus />} />
+                        </div>
+                    ) : (
+                        <div className='flex flex-col border-b border-slate-700 pb-3'>
+                            <Menus name='List Ruangan' navigate='list-ruangan' icon={<FaClipboardList />} />
+                        </div>
+                    )
+                }
             </div>
 
             <div className='flex flex-col mt-auto ms-5 mb-5'>
@@ -72,7 +83,7 @@ export default function Sidebar(props) {
                     <span>Asia/Jakarta</span>
                 </p>
 
-                <button 
+                <button
                     className='text-red-600 w-fit flex gap-5 items-center justify-center self-end hover:bg-slate-800 hover:scale-105 py-2 px-3 me-2 rounded transition-all duration-150 ease-in-out'
                     onClick={() => handleLogout()}
                 >

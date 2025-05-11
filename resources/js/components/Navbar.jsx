@@ -27,7 +27,7 @@ export default function Navbar(props) {
                             </h2>
                         </div>
                     </li>
-                    <Popup isHidden={isHidden} username={props.username} role={props.role} roleId={props.roleId}/>
+                    <Popup isHidden={isHidden} username={props.username} role={props.role} roleId={props.roleId} isAdmin={props.isAdmin}/>
                 </ul>
             </nav>
         </div>

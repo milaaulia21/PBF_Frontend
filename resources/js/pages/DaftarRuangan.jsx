@@ -4,10 +4,16 @@ import { DataContext } from "../lib/DataContext";
 import DeleteEditRow from "../components/DeleteEditRow";
 import { handleDelete } from "../api/ruanganApi";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../lib/AuthContext";
 
 export default function DaftarRuangan() {
     const { dataRuangan, fetchData } = useContext(DataContext);
     const navigate = useNavigate();
+    const { profile } = useAuth()
+
+    if (!profile) {
+        return <h1>Loading...</h1>
+    }
 
     const handleDeleteWrapper = async (id) => {
         try {
@@ -35,8 +41,8 @@ export default function DaftarRuangan() {
                                 <th className="p-3 border w-12">No</th>
                                 <th className="p-3 border">Kode Ruangan</th>
                                 <th className="p-3 border">Nama Ruangan</th>
-                                <th className="p-3 border">Edit</th>
-                                <th className="p-3 border">Del</th>
+                                <th className={`p-3 border ${profile.isAdmin === 'Y' ? '' : 'hidden'}`}>Edit</th>
+                                <th className={`p-3 border ${profile.isAdmin === 'Y' ? '' : 'hidden'}`}>Del</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,6 +55,7 @@ export default function DaftarRuangan() {
                                         <DeleteEditRow
                                             onDelete={() => handleDeleteWrapper(ruangan.id_ruangan)}
                                             onEdit={() => handleEditWrapper(ruangan.id_ruangan)}
+                                            isAdmin={profile.isAdmin}
                                         />
                                     </tr>
                                 ))

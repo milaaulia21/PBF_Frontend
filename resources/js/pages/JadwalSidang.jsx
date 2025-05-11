@@ -5,6 +5,8 @@ import { GoPlus } from "react-icons/go";
 import { useAuth } from "../lib/AuthContext";
 import { handleDaftarSidang, updateStatusSidang } from "../api/sidangApi";
 import { FaCheck } from "react-icons/fa";
+import { MdOutlineFileDownload } from "react-icons/md";
+import * as XLSX from 'xlsx'
 
 export default function JadwalSidang() {
     const { dataSidang, dataMahasiswa, dataRuangan, fetchData } = useContext(DataContext);
@@ -17,6 +19,14 @@ export default function JadwalSidang() {
 
     const role = localStorage.getItem('role')
     const isMahasiswa = role === "mahasiswa"
+
+    const exportJadwalSidangToExcel = () => {
+        const worksheet = XLSX.utils.json_to_sheet(dataSidang)
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+
+        XLSX.writeFile(workbook, 'data.xlsx');
+    }
 
     const handleDaftarSidangWrapper = async () => {
         try {
@@ -42,6 +52,13 @@ export default function JadwalSidang() {
             <div className="min-h-[90vh] w-full flex flex-col items-center gap-6 px-4">
                 <div className="w-full max-w-6xl">
                     <div className="relative flex justify-center items-center my-8">
+
+                        <button
+                            className={`absolute left-0 bg-slate-800 text-white py-2 px-4 rounded-full flex items-center gap-2 hover:scale-105 hover:opacity-80 transition-all ${!isMahasiswa && 'hidden'}`}
+                            onClick={() => exportJadwalSidangToExcel()}
+                        >
+                            <MdOutlineFileDownload className="text-lg" /> Download
+                        </button>
                         <h1 className="text-2xl font-semibold">Jadwal Sidang</h1>
                         <button
                             className={`absolute right-0 bg-slate-800 text-white py-2 px-4 rounded-full flex items-center gap-2 hover:scale-105 hover:opacity-80 transition-all ${!isMahasiswa && 'hidden'}`}

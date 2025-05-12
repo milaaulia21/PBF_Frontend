@@ -10,8 +10,6 @@ export default function MainLayout({children}){
         return <div>Loading...</div>
     }
 
-    console.log(profile)
-
     return(
         <div className="w-screen h-screen flex">
             <Sidebar username={role === "mahasiswa" ? profile.nama_mhs : profile.nama_dosen}/>

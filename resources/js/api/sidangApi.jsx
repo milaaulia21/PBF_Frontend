@@ -11,15 +11,17 @@ export const handleDaftarSidang = async (profile) => {
             })
         })
 
+        
         if (!response.ok) {
-            throw new Error('Gak betul ini bang editnya')
+            const errorData = await response.json()
+            throw new Error(errorData.messages?.error)
         }
-
+        
         const result = await response.json()
         console.log(result)
         return result
     } catch (e) {
-        console.error('Gagal Menghapus Data :', e)
+        console.error(e)
         throw e
     }
 }
@@ -38,7 +40,6 @@ export const updateStatusSidang = async (id, status) => {
         })
 
         const result = await response.json()
-        console.log(result)
         return result
     }catch(e){
         console.error('Gagal Mengupdate Data :', e)

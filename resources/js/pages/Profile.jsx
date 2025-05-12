@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import MainLayout from '../components/MainLayout'
 import { IoPersonSharp } from 'react-icons/io5'
 import { useAuth } from '../lib/AuthContext'
-import MahasiswaProfile from '../components/MahasiswaProfile'
-import DosenProfile from '../components/DosenProfile'
+import MahasiswaProfile from '../pages/MahasiswaProfile'
+import DosenProfile from '../pages/DosenProfile'
 
 const Profile = () => {
   const [isEdit, setIsEdit] = useState(false)

@@ -5,11 +5,14 @@ import DeleteEditRow from "../components/DeleteEditRow";
 import { handleDelete } from "../api/ruanganApi";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../lib/AuthContext";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 export default function DaftarRuangan() {
     const { dataRuangan, fetchData } = useContext(DataContext);
     const navigate = useNavigate();
     const { profile } = useAuth()
+    const MySwal = withReactContent(Swal)
 
     if (!profile) {
         return <h1>Loading...</h1>
@@ -17,16 +20,17 @@ export default function DaftarRuangan() {
 
     const handleDeleteWrapper = async (id) => {
         try {
-            await handleDelete(id);
+            const res = await handleDelete(id);
             fetchData();
+            MySwal.fire('Success', res.message, "success");
         } catch (e) {
             console.error(e);
         }
     };
 
-    const handleEditWrapper = (id) => {
+    const handleEditWrapper = (idState, kodeState, ruanganState) => {
         navigate('/edit-ruangan', {
-            state: { id }
+            state: { idState, kodeState, ruanganState, }
         });
     };
 
@@ -54,7 +58,7 @@ export default function DaftarRuangan() {
                                         <td className="p-3 border text-left">{ruangan.nama_ruangan}</td>
                                         <DeleteEditRow
                                             onDelete={() => handleDeleteWrapper(ruangan.id_ruangan)}
-                                            onEdit={() => handleEditWrapper(ruangan.id_ruangan)}
+                                            onEdit={() => handleEditWrapper(ruangan.id_ruangan, ruangan.kode_ruangan, ruangan.nama_ruangan)}
                                             isAdmin={profile.isAdmin}
                                         />
                                     </tr>

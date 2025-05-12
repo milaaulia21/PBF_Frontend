@@ -3,33 +3,37 @@ import { DataContext } from "../lib/DataContext"
 import MainLayout from "../components/MainLayout"
 import { handleEdit } from "../api/mahasiswaApi"
 import { useNavigate, useLocation } from 'react-router-dom'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 export default function EditMahasiswa(){
     const location = useLocation()
     const navigate = useNavigate()
     const { fetchData } = useContext(DataContext)
-    const { id } = location.state || {}
+    const {  idState, namaState, nimState, prodiState, tahunAkademikState, judulSkripsiState  } = location.state || {}
+    const MySwal = withReactContent(Swal)
 
     useEffect(()=> {
         if(!location.state){
-            navigate('/daftar-mahasiswa')
+            navigate('/list-mahasiswa')
         }
     },[location, navigate])
 
     if (!location.state) return null;
     
-    const [nama, setNama] = useState('')
-    const [nim, setNim] = useState('')
-    const [prodi, setProdi] = useState('')
-    const [tahunAkademik, setTahunAkademik] = useState('')
-    const [judulSkripsi, setJudulSkripsi] = useState('')
+    const [nama, setNama] = useState(namaState)
+    const [nim, setNim] = useState(nimState)
+    const [prodi, setProdi] = useState(prodiState)
+    const [tahunAkademik, setTahunAkademik] = useState(tahunAkademikState)
+    const [judulSkripsi, setJudulSkripsi] = useState(judulSkripsiState)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         try{
-            await handleEdit(id, nama, nim, prodi, tahunAkademik, judulSkripsi)
+            const res = await handleEdit(idState, nama, nim, prodi, tahunAkademik, judulSkripsi)
+            MySwal.fire("Success", res.message, "success")
             fetchData()
-            navigate('/daftar-mahasiswa')
+            navigate('/list-mahasiswa')
 
         }catch(e){
             console.error("Gagal Mengirim Data :", e)
@@ -67,7 +71,7 @@ export default function EditMahasiswa(){
                             <label htmlFor="judul_skripsi" className="mb-2 font-semibold">Judul Skripsi</label>
                             <input type="year" id="judul_skripsi" name="judul_skripsi" placeholder="Masukkan Judul Skripsi" className="p-2 bg-slate-100 rounded-md" value={judulSkripsi} onChange={(e) => setJudulSkripsi(e.target.value)}/>
                         </div>
-                        <button className="bg-slate-800 self-center text-white py-2 px-3 rounded-md hover:scale-105 hover:opacity-80 transition-all duration-150 ease-in-out" type="submit">Tambah Mahasiswa</button>
+                        <button className="bg-slate-800 self-center text-white py-2 px-7 rounded-full hover:scale-105 hover:opacity-80 transition-all duration-150 ease-in-out" type="submit">Edit</button>
                     </form>
                 </div>
             </MainLayout>

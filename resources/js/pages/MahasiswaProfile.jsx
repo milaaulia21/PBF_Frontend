@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { MdOutlineModeEdit } from 'react-icons/md'
 import { handleEdit } from '../api/mahasiswaApi'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const MahasiswaProfile = (props) => {
     const profile = props.profile
@@ -9,11 +11,13 @@ const MahasiswaProfile = (props) => {
     const [judulSkripsi, setJudulSkripsi] = useState(profile.judul_skripsi)
     const [prodi, setProdi] = useState(profile.prodi_mhs)
     const [tahunAkademik, setTahunAkademik] = useState(profile.thn_akademik)
+    const MySwal = withReactContent(Swal)
 
     const handleSubmitWrapper = async (e) => {
         e.preventDefault()
         try{
             const res = await handleEdit(profile.id_mhs, name, nim, prodi, tahunAkademik, judulSkripsi)
+            MySwal.fire("Success", res.message, "success")
             window.location.reload()
         }catch(e){
             console.error('Gagal Mengedit Data :', e)

@@ -1,5 +1,5 @@
 import MainLayout from "../components/MainLayout";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { DataContext } from "../lib/DataContext";
 import { GoPlus } from "react-icons/go";
 import { useAuth } from "../lib/AuthContext";
@@ -8,11 +8,22 @@ import { FaCheck } from "react-icons/fa";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { jsPDF } from 'jspdf'
 import { autoTable } from 'jspdf-autotable'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 export default function JadwalSidang() {
     const { dataSidang, dataMahasiswa, dataRuangan, fetchData } = useContext(DataContext);
     const { profile } = useAuth();
-    const [statusSidang, setStatusSidang] = useState(dataSidang.status)
+    const [statusSidang, setStatusSidang] = useState({})
+    const MySwal = withReactContent(Swal)
+    
+    useEffect(() => {
+        const initialStatus = {};
+        dataSidang.forEach(item => {
+            initialStatus[item.id_sidang] = item.status;
+        });
+        setStatusSidang(initialStatus);
+    }, [dataSidang]);
 
     if (!profile) {
         return <h1>Loading</h1>
@@ -54,19 +65,19 @@ export default function JadwalSidang() {
     const handleDaftarSidangWrapper = async () => {
         try {
             const res = await handleDaftarSidang(profile)
-            console.log(res)
+            MySwal.fire("Success", res.message, "success")
             fetchData()
         } catch (e) {
-            console.error(e)
+            MySwal.fire("Error", e.message, "error")
         }
     }
 
-    const handleUpdateStatusWrapper = async (id) => {
+    const handleUpdateStatusWrapper = async (id, status) => {
         try {
-            const res = await updateStatusSidang(id, statusSidang)
-            console.log(res)
+            const res = await updateStatusSidang(id, status);
+            MySwal.fire("Success", res.message, "success");
         } catch (e) {
-            console.error(e)
+            MySwal.fire("Error", e.message || "Gagal update status", "error");
         }
     }
 
@@ -124,19 +135,24 @@ export default function JadwalSidang() {
                                                         <td className="p-3 border">
                                                             <form onSubmit={(e) => {
                                                                 e.preventDefault()
-                                                                handleUpdateStatusWrapper(sidang.id_sidang)
+                                                                handleUpdateStatusWrapper(sidang.id_sidang, statusSidang[sidang.id_sidang])
+
                                                             }}>
                                                                 <select
                                                                     className="border border-gray-300 rounded p-2"
-                                                                    value={statusSidang}
+                                                                    value={statusSidang[sidang.id_sidang] || ""}
                                                                     onChange={(e) => {
-                                                                        setStatusSidang(e.target.value)
+                                                                        setStatusSidang(prev => ({
+                                                                            ...prev,
+                                                                            [sidang.id_sidang]: e.target.value
+                                                                        }));
                                                                     }}
                                                                 >
                                                                     <option value="DITUNDA">DITUNDA</option>
-                                                                    <option value="DIJADWALKAN">DJADWALKAN</option>
+                                                                    <option value="DIJADWALKAN">DIJADWALKAN</option>
                                                                     <option value="DIBATALKAN">DIBATALKAN</option>
                                                                 </select>
+
                                                                 <button type="submit" className="ml-2 rounded-md border border-slate-900 p-2 hover:bg-slate-900 hover:text-white transition-all duration-150 ease-in-out">
                                                                     <FaCheck />
                                                                 </button>

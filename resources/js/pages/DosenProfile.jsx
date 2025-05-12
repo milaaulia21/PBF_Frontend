@@ -1,16 +1,20 @@
 import React, { useState } from 'react'
 import { MdOutlineModeEdit } from 'react-icons/md'
 import { handleEdit } from '../api/dosenApi'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const DosenProfile = (props) => {
     const profile = props.profile
     const [name, setName] = useState(profile.nama_dosen)
     const [nip, setNIP] = useState(profile.nip)
+    const MySwal = withReactContent(Swal)
 
     const handleSubmitWrapper = async (e) => {
         e.preventDefault()
         try{
             const res = await handleEdit(profile.id_dosen, name, nip)
+            MySwal.fire("Success", res.message, "success")
             window.location.reload()
         }catch(e){
             console.error('Gagal Mengedit Data :', e)
@@ -42,7 +46,6 @@ const DosenProfile = (props) => {
                                 <p>{name}</p>
                             </li>
                             <li>
-                                <p className='font-semibold'>NIP </p>
                                 <p>{nip}</p>
                             </li>
 

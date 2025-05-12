@@ -5,10 +5,13 @@ import DeleteEditRow from "../components/DeleteEditRow";
 import { handleDelete } from "../api/mahasiswaApi";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../lib/AuthContext";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 export default function DaftarMahasiswa() {
     const { dataMahasiswa, fetchData } = useContext(DataContext);
     const { profile } = useAuth()
+    const MySwal = withReactContent(Swal)
 
     if (!profile) {
         return <h1>Loading...</h1>
@@ -18,16 +21,17 @@ export default function DaftarMahasiswa() {
 
     const handleDeleteWrapper = async (id) => {
         try {
-            await handleDelete(id);
+            const res = await handleDelete(id);
             fetchData();
+            MySwal.fire('Success', res.message, "success");
         } catch (e) {
             console.error(e);
         }
     };
 
-    const handleEditWrapper = (id) => {
+    const handleEditWrapper = (idState, namaState, nimState, prodiState, tahunAkademikState, judulSkripsiState) => {
         navigate('/edit-mahasiswa', {
-            state: { id }
+            state: { idState, namaState, nimState, prodiState, tahunAkademikState, judulSkripsiState }
         });
     };
 
@@ -61,7 +65,7 @@ export default function DaftarMahasiswa() {
                                         <td className="p-3 border text-left">{mahasiswa.judul_skripsi}</td>
                                         <DeleteEditRow
                                             onDelete={() => handleDeleteWrapper(mahasiswa.id_mhs)}
-                                            onEdit={() => handleEditWrapper(mahasiswa.id_mhs)}
+                                            onEdit={() => handleEditWrapper(mahasiswa.id_mhs, mahasiswa.nama_mhs, mahasiswa.nim, mahasiswa.prodi_mhs, mahasiswa.thn_akademik, mahasiswa.judul_skripsi)}
                                             isAdmin={profile.isAdmin}
                                         />
                                     </tr>

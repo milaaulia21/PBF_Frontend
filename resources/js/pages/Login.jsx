@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { getProfile, handleLogin } from '../api/authApi'
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md'
 import { useAuth } from '../lib/AuthContext'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 export default function Login() {
     const [username, setUsername] = useState('')
@@ -10,6 +12,7 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState(false)
     const navigate = useNavigate()
     const { setProfile } = useAuth()
+    const MySwal = withReactContent(Swal)
 
     const handleLoginWrapper = async (e) => {
         e.preventDefault()
@@ -17,7 +20,7 @@ export default function Login() {
             const res = await handleLogin(username, password)
 
             if (!res || !res.token) {
-                alert('Username atau password salah');
+                MySwal.fire("Error", "Username atau Password salah", "warning")
                 return;
             }
 
@@ -29,6 +32,8 @@ export default function Login() {
                 setProfile(profileRes.user)
             }
 
+            MySwal.fire("Success","Login Berhasil", "success" )
+
             const validTarget = ['dosen', 'mahasiswa']
 
             if (res.redirect && validTarget.includes(res.target)) {
@@ -37,9 +42,8 @@ export default function Login() {
                 navigate('/landing-page');
             }
 
-
         } catch (e) {
-            alert(e.message)
+            MySwal.fire("Error", e.message, "error")
         }
     }
 

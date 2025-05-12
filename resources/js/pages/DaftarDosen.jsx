@@ -5,30 +5,32 @@ import DeleteEditRow from "../components/DeleteEditRow";
 import { handleDelete } from '../api/dosenApi';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../lib/AuthContext";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 export default function DaftarDosen() {
     const { dataDosen, fetchData } = useContext(DataContext);
     const navigate = useNavigate();
     const { profile } = useAuth()
+    const MySwal = withReactContent(Swal)
 
     if (!profile) {
         return <h1>Loading...</h1>
     }
 
-    console.log(profile)
-
     const handleDeleteWrapper = async (id) => {
         try {
-            await handleDelete(id);
+            const res = await handleDelete(id);
             fetchData();
+            MySwal.fire('Success', res.message, "success");
         } catch (e) {
             console.error(e);
         }
     };
 
-    const handleEditWrapper = (id) => {
+    const handleEditWrapper = (idState, namaState, nipState) => {
         navigate('/edit-dosen', {
-            state: { id }
+            state: { idState, namaState, nipState }
         });
     };
 
@@ -56,7 +58,7 @@ export default function DaftarDosen() {
                                         <td className="p-3 border">{dosen.nip}</td>
                                         <DeleteEditRow
                                             onDelete={() => handleDeleteWrapper(dosen.id_dosen)}
-                                            onEdit={() => handleEditWrapper(dosen.id_dosen)}
+                                            onEdit={() => handleEditWrapper(dosen.id_dosen, dosen.nama_dosen, dosen.nip)}
                                             isAdmin={profile.isAdmin}
                                         />
                                     </tr>

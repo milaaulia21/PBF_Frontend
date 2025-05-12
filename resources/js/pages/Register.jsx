@@ -2,12 +2,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md';
 import { handleRegister } from '../api/authApi';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 export default function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmator, setPasswordConfirmator] = useState('');
     const [role, setRole] = useState('mahasiswa');
+    const MySwal = withReactContent(Swal)
     const [showPassword, setShowPassword] = useState({
         password: false,
         confirm: false
@@ -23,16 +26,17 @@ export default function Register() {
         e.preventDefault();
 
         if (password.length < 8) {
-            alert('Password harus minimal 8 karakter');
+            MySwal.fire("Error", "Password minimal harus 8 karakter", "warning")
             return;
         }
 
         if (password !== passwordConfirmator) {
-            alert('Konfirmasi password tidak sesuai');
+            MySwal.fire("Error", "Password tidak sesuai", "error")
             return;
         }
 
         await handleRegister(username, password, role)
+        MySwal.fire("Success", "Berhasil Register", "success")
 
         navigate(`/`);
     };
@@ -49,32 +53,32 @@ export default function Register() {
                     <div className="flex flex-col space-y-6 my-4">
                         <div className='space-y-2'>
                             <label htmlFor="username" className='block font-medium text-sm text-slate-700'>Username</label>
-                            <input 
-                                type="text" 
-                                id="username" 
-                                className="border w-full px-4 py-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent" 
-                                placeholder="JohnDoe123" 
-                                value={username} 
-                                onChange={(e) => setUsername(e.target.value)} 
-                                required 
+                            <input
+                                type="text"
+                                id="username"
+                                className="border w-full px-4 py-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent"
+                                placeholder="JohnDoe123"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
                             />
                         </div>
 
                         <div className='space-y-2'>
                             <label htmlFor="password" className='block font-medium text-sm text-slate-700'>Password</label>
                             <div className='relative'>
-                                <input 
-                                    type={showPassword.password ? 'text' : 'password'} 
-                                    id="password" 
-                                    className="border w-full px-4 py-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent" 
-                                    placeholder="••••••••" 
-                                    value={password} 
-                                    onChange={(e) => setPassword(e.target.value)} 
-                                    required 
+                                <input
+                                    type={showPassword.password ? 'text' : 'password'}
+                                    id="password"
+                                    className="border w-full px-4 py-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent"
+                                    placeholder="••••••••"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
                                 />
-                                <button 
-                                    type='button' 
-                                    className='absolute inset-y-0 right-0 pr-3 flex items-center text-slate-700' 
+                                <button
+                                    type='button'
+                                    className='absolute inset-y-0 right-0 pr-3 flex items-center text-slate-700'
                                     onClick={() => togglePassword('password')}
                                 >
                                     {showPassword.password ? <MdOutlineVisibilityOff /> : <MdOutlineVisibility />}
@@ -86,18 +90,18 @@ export default function Register() {
                         <div className='space-y-2'>
                             <label htmlFor="passwordConfirmator" className='block font-medium text-sm text-slate-700'>Konfirmasi Password</label>
                             <div className='relative'>
-                                <input 
-                                    type={showPassword.confirm ? 'text' : 'password'} 
-                                    id="passwordConfirmator" 
-                                    className="border w-full px-4 py-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent" 
-                                    placeholder="••••••••" 
+                                <input
+                                    type={showPassword.confirm ? 'text' : 'password'}
+                                    id="passwordConfirmator"
+                                    className="border w-full px-4 py-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent"
+                                    placeholder="••••••••"
                                     value={passwordConfirmator}
                                     onChange={(e) => setPasswordConfirmator(e.target.value)}
-                                    required 
+                                    required
                                 />
-                                <button 
-                                    type='button' 
-                                    className='absolute inset-y-0 right-0 pr-3 flex items-center text-slate-700' 
+                                <button
+                                    type='button'
+                                    className='absolute inset-y-0 right-0 pr-3 flex items-center text-slate-700'
                                     onClick={() => togglePassword('confirm')}
                                 >
                                     {showPassword.confirm ? <MdOutlineVisibilityOff /> : <MdOutlineVisibility />}
@@ -107,12 +111,12 @@ export default function Register() {
 
                         <div>
                             <label htmlFor="role" className='block font-medium text-sm text-slate-700'>Register Sebagai : </label>
-                            <select 
-                                name="role" 
-                                id="role" 
-                                value={role} 
-                                onChange={(e) => setRole(e.target.value)} 
-                                className="border w-full px-3 py-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent text-slate-700" 
+                            <select
+                                name="role"
+                                id="role"
+                                value={role}
+                                onChange={(e) => setRole(e.target.value)}
+                                className="border w-full px-3 py-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent text-slate-700"
                                 required
                             >
                                 <option value="">Login Sebagai :</option>
@@ -121,8 +125,8 @@ export default function Register() {
                             </select>
                         </div>
                     </div>
-                    <button 
-                        className='w-full bg-slate-900 text-white py-3 rounded-lg font-medium self-center px-9 mb-5 mt-10 hover:opacity-90 ease-in-out transition-all duration-150 focus:ring-2 focus:ring-offset-2 focus:ring-slate-600' 
+                    <button
+                        className='w-full bg-slate-900 text-white py-3 rounded-lg font-medium self-center px-9 mb-5 mt-10 hover:opacity-90 ease-in-out transition-all duration-150 focus:ring-2 focus:ring-offset-2 focus:ring-slate-600'
                         type='submit'
                         onClick={() => handleRegisterWrapper}
                     >
@@ -130,7 +134,7 @@ export default function Register() {
                     </button>
                     <div className='text-sm text-center text-slate-600'>
                         Sudah Punya Akun?{' '}
-                        <span 
+                        <span
                             className="ms-2 text-sky-600 hover:opacity-70 ease-in-out transition-all duration-150 cursor-pointer"
                             onClick={() => navigate('/')}
                         >

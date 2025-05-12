@@ -1,14 +1,17 @@
 import { useState, useContext } from "react"
 import { DataContext } from "../lib/DataContext"
 import MainLayout from "../components/MainLayout"
+import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 export default function TambahRuangan(){
     const { fetchData } = useContext(DataContext)
     const [kodeRuangan, setKodeRuangan] = useState('')
     const [ruangan, setRuangan] = useState('')
-
+    const navigate = useNavigate()
+    const MySwal = withReactContent(Swal)
     
-
     const handleSubmit = async (e) => {
         e.preventDefault()
 
@@ -26,12 +29,9 @@ export default function TambahRuangan(){
 
             fetchData()
             const result = await response.json()
-            console.log("Response", result)
+            MySwal.fire('Success', result.message, "success")
 
-            setRuangan('')
-            setKodeRuangan('')
-
-            
+            navigate('/list-ruangan')
         }catch(e){
             console.error("Gagal Mengirim Data :", e)
         }

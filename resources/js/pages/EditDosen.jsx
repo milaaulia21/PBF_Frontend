@@ -3,32 +3,36 @@ import { DataContext } from "../lib/DataContext"
 import MainLayout from "../components/MainLayout"
 import { useNavigate, useLocation } from "react-router-dom"
 import { handleEdit } from "../api/dosenApi"
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 
 export default function EditDosen(){
     const { fetchData } = useContext(DataContext)
     const location = useLocation()
     const navigate = useNavigate()
-    const { id } = location.state || {}
+    const { idState, namaState, nipState } = location.state || {}
+    const MySwal = withReactContent(Swal)
 
     useEffect(()=> {
         if(!location.state){
-            navigate('/daftar-dosen')
+            navigate('/list-dosen')
         }
     },[location, navigate])
 
     if (!location.state) return null;
 
-    const [nama, setNama] = useState('')
-    const [nip, setNip] = useState('')
+    const [nama, setNama] = useState(namaState)
+    const [nip, setNip] = useState(nipState)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         try{
-            await handleEdit(id, nama, nip)
+            const res = await handleEdit(idState, nama, nip)
+            MySwal.fire("Success",res.message,"success")
             fetchData()
-            navigate('/daftar-dosen')
+            navigate('/list-dosen')
 
         }catch(e){
             console.error("Gagal Mengirim Data :", e)
@@ -49,7 +53,7 @@ export default function EditDosen(){
                             <label htmlFor="nip" className="mb-2 font-semibold">NIP</label>
                             <input type="number" id="nip" name="nip" placeholder="Masukkan Nomor Induk Pendidik" className="p-2 bg-slate-100 rounded-md" value={nip} onChange={(e) => setNip(e.target.value)}/>
                         </div>
-                        <button className="bg-slate-800 self-center text-white py-2 px-3 rounded-md hover:scale-105 hover:opacity-80 transition-all duration-150 ease-in-out" type="submit">Konfirmasi</button>
+                        <button className="bg-slate-800 self-center text-white py-2 px-7 rounded-full hover:scale-105 hover:opacity-80 transition-all duration-150 ease-in-out" type="submit">Edit</button>
                     </form>
                 </div>
             </MainLayout>

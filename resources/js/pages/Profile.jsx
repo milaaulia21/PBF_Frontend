@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import MainLayout from '../components/MainLayout'
 import { IoPersonSharp } from 'react-icons/io5'
 import { useAuth } from '../lib/AuthContext'
 import MahasiswaProfile from '../pages/MahasiswaProfile'
@@ -20,7 +19,6 @@ const Profile = () => {
   }
 
   return (
-    <MainLayout>
       <div className='h-full flex flex-col items-center'>
         <div className='w-24 h-24 rounded-full overflow-hidden bg-slate-800 text-white mt-10'>
           <h1 className='w-full h-full flex justify-center items-center'>
@@ -33,7 +31,6 @@ const Profile = () => {
           <DosenProfile profile={profile} isEdit={isEdit} onEdit={editToggle}/>
         }
       </div>
-    </MainLayout>
   )
 }
 

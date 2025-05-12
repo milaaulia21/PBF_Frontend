@@ -13,12 +13,12 @@ export default function DaftarMahasiswa() {
     const { dataMahasiswa, fetchData } = useContext(DataContext);
     const { profile } = useAuth()
     const MySwal = withReactContent(Swal)
+    const navigate = useNavigate();
 
     if (!profile) {
         return <Loading />
     }
 
-    const navigate = useNavigate();
 
     const handleDeleteWrapper = async (id) => {
         try {
@@ -26,7 +26,7 @@ export default function DaftarMahasiswa() {
             fetchData();
             MySwal.fire('Success', res.message, "success");
         } catch (e) {
-            console.error(e);
+            MySwal.fire('Error', e.message, "error");
         }
     };
 
@@ -37,10 +37,9 @@ export default function DaftarMahasiswa() {
     };
 
     return (
-        <MainLayout>
             <div className="w-full flex flex-col items-center px-4">
                 <h2 className="text-2xl font-semibold my-8 mb-10">Daftar Mahasiswa</h2>
-                <div className="w-full max-w-7xl overflow-x-auto">
+                <div className="w-full max-w-7xl overflow-x-scroll">
                     <table className="w-full border border-collapse text-center">
                         <thead className="bg-slate-800 text-white">
                             <tr>
@@ -50,8 +49,8 @@ export default function DaftarMahasiswa() {
                                 <th className="p-3 border">Program Studi</th>
                                 <th className="p-3 border">Tahun Akademik</th>
                                 <th className="p-3 border">Judul Skripsi</th>
-                                <th className={`p-3 border ${profile.isAdmin === 'Y' ? '' : 'hidden'}`}>Edit</th>
-                                <th className={`p-3 border ${profile.isAdmin === 'Y' ? '' : 'hidden'}`}>Del</th>
+                                <th className={`p-3 border ${profile?.isAdmin === 'Y' ? '' : 'hidden'}`}>Edit</th>
+                                <th className={`p-3 border ${profile?.isAdmin === 'Y' ? '' : 'hidden'}`}>Del</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,7 +66,7 @@ export default function DaftarMahasiswa() {
                                         <DeleteEditRow
                                             onDelete={() => handleDeleteWrapper(mahasiswa.id_mhs)}
                                             onEdit={() => handleEditWrapper(mahasiswa.id_mhs, mahasiswa.nama_mhs, mahasiswa.nim, mahasiswa.prodi_mhs, mahasiswa.thn_akademik, mahasiswa.judul_skripsi)}
-                                            isAdmin={profile.isAdmin}
+                                            isAdmin={profile?.isAdmin}
                                         />
                                     </tr>
                                 ))
@@ -82,6 +81,5 @@ export default function DaftarMahasiswa() {
                     </table>
                 </div>
             </div>
-        </MainLayout>
     );
 }

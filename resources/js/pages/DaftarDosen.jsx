@@ -36,7 +36,6 @@ export default function DaftarDosen() {
     };
 
     return (
-        <MainLayout>
             <div className="w-full flex flex-col items-center px-4">
                 <h2 className="text-2xl font-semibold my-8 mb-10">Daftar Dosen</h2>
                 <div className="w-full max-w-4xl overflow-x-auto">
@@ -75,6 +74,5 @@ export default function DaftarDosen() {
                     </table>
                 </div>
             </div>
-        </MainLayout>
     );
 }

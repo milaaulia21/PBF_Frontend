@@ -39,7 +39,6 @@ export default function TambahRuangan(){
     }
     return (
         <>
-            <MainLayout>
                 <div className="w-full flex flex-col items-center">
                     <h2 className="text-2xl font-semibold my-8 mb-10">Tambah Ruangan</h2>
                     <form className="w-[70%] flex flex-col gap-7 border p-5 rounded-md" onSubmit={handleSubmit}>
@@ -54,7 +53,6 @@ export default function TambahRuangan(){
                         <button className="bg-slate-700 self-center text-white py-2 px-3 rounded-md hover:scale-105 hover:opacity-80 transition-all duration-150 ease-in-out" type="submit">Tambah Ruangan</button>
                     </form>
                 </div>
-            </MainLayout>
         </>
     )
 }

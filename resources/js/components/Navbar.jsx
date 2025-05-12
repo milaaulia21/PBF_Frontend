@@ -2,6 +2,7 @@ import { IoPersonSharp } from "react-icons/io5";
 import Popup from "./Popup";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { LuPanelRight } from "react-icons/lu";
 
 export default function Navbar(props) {
     const [isHidden, setIsHidden] = useState(true)
@@ -13,11 +14,17 @@ export default function Navbar(props) {
 
     return (
         <div className="w-full">
-            <nav className="h-[8vh] w-full flex flex-row justify-end bg-slate-800 items-center">
-                <ul className="w-fit flex items-center gap-5 mr-5 relative transition-all ease-in-out duration-150 cursor-pointer" 
-                onMouseEnter={() => setIsHidden(false)} 
-                onMouseLeave={() => setIsHidden(true)}
-                onClick={() => handleNavigate()}    
+            <nav className="h-[6vh] md:[7vh] lg:h-[8vh] w-full flex flex-row justify-between bg-slate-800 items-center">
+                <h3
+                    className="ml-3 text-slate-50 hover:bg-slate-900 rounded-md transition-all duration-150 ease-in-out p-2 cursor-pointer text-2xl"
+                    onClick={props.onClick}
+                >
+                    <LuPanelRight />
+                </h3>
+                <ul className="w-fit flex items-center gap-5 mr-5 relative transition-all ease-in-out duration-150 cursor-pointer"
+                    onMouseEnter={() => setIsHidden(false)}
+                    onMouseLeave={() => setIsHidden(true)}
+                    onClick={() => handleNavigate()}
                 >
                     <li className="text-slate-50">{props.username}</li>
                     <li>
@@ -27,7 +34,7 @@ export default function Navbar(props) {
                             </h2>
                         </div>
                     </li>
-                    <Popup isHidden={isHidden} username={props.username} role={props.role} roleId={props.roleId} isAdmin={props.isAdmin}/>
+                    <Popup isHidden={isHidden} username={props.username} role={props.role} roleId={props.roleId} isAdmin={props.isAdmin} />
                 </ul>
             </nav>
         </div>

@@ -41,7 +41,6 @@ export default function EditDosen(){
 
     return (
         <>
-            <MainLayout>
                 <div className="w-full flex flex-col items-center">
                     <h2 className="text-2xl font-semibold my-8 mb-10">Edit Dosen</h2>
                     <form className="w-[70%] flex flex-col gap-7 border p-5 rounded-md" onSubmit={handleSubmit}>
@@ -56,7 +55,6 @@ export default function EditDosen(){
                         <button className="bg-slate-800 self-center text-white py-2 px-7 rounded-full hover:scale-105 hover:opacity-80 transition-all duration-150 ease-in-out" type="submit">Edit</button>
                     </form>
                 </div>
-            </MainLayout>
         </>
     )
 }

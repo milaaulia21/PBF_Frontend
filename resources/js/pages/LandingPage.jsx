@@ -11,7 +11,6 @@ export default function LandingPage() {
 
     return (
         <div className="flex min-h-screen">
-            <MainLayout>
                 <div className="w-full overflow-hidden min-h-fit">
                     <div className="min-h-[93vh] min-w-full flex items-center justify-center gap-16 ">
                         <img src="../image/student.svg" alt="gambar mahasiswa" className="h-[40rem]" />
@@ -25,7 +24,6 @@ export default function LandingPage() {
                         </div>
                     </div>
                 </div>
-            </MainLayout>
         </div>
     )
 }

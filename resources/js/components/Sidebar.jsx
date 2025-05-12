@@ -9,17 +9,35 @@ import { IoIosInformationCircle } from 'react-icons/io'
 import { handleLogout } from '../api/authApi'
 import { useAuth } from '../lib/AuthContext'
 
-export default function Sidebar(props) {
+export default function Sidebar({ username, isOpen, isMobile, isTablet, setIsOpen }) {
     const { profile } = useAuth()
     const isAdmin = profile.isAdmin === 'Y' ? true : false
+
     return (
-        <aside className="flex flex-col h-screen w-[18dvw] bg-slate-900 overflow-y-auto">
-            <div className=" flex flex-col p-5 border-b border-slate-700 gap-2">
+        <aside 
+            className={`
+                fixed top-0 left-0 z-50 h-screen bg-slate-900 
+                flex flex-col
+                overflow-y-auto 
+                transition-all duration-300 ease-in-out 
+                ${isMobile 
+                    ? (isOpen 
+                        ? 'translate-x-0 w-[70vw] max-w-[300px]' 
+                        : '-translate-x-full w-0') 
+                    : (isOpen 
+                        ? (isTablet 
+                            ? 'translate-x-0 w-[30vw]' 
+                            : 'translate-x-0 w-[18vw]') 
+                        : '-translate-x-full w-0')
+                }
+            `}
+        >
+            <div className="flex flex-col p-5 border-b border-slate-700 gap-2">
                 <h1 className="text-xl text-white font-bold">MySidang.com</h1>
-                <p className="text-slate-400 text-sm mt-1">Hi {props.username}! 👋</p>
+                <p className="text-slate-400 text-sm mt-1">Hi {username}! 👋</p>
             </div>
 
-            <div className='flex-1'>
+            <div className='flex-1 flex flex-col'>
                 <div className='flex flex-col border-b border-slate-700 py-2'>
                     <Menus name='Home' navigate='landing-page' icon={<FaHome />} />
                     <Menus name='Jadwal Sidang' navigate='jadwal-sidang' icon={<FaCalendarDay />} />
@@ -62,36 +80,37 @@ export default function Sidebar(props) {
                 }
             </div>
 
-            <div className='flex flex-col mt-auto ms-5 mb-5'>
-                <h3 className='text-xs font-semibold text-slate-100 mt-20 flex items-center justify-center w-fit gap-5 mb-5'>
+            <div className='flex flex-col p-5 mt-auto'>
+                <h3 className='text-xs font-semibold text-slate-100 mb-5 flex items-center justify-center w-fit gap-5'>
                     <span><FaGear /></span>
                     <span>SYSTEM</span>
                 </h3>
 
-                <p className='text-xs text-slate-100 w-fit flex justify-center items-center ms-5 gap-5'>
-                    <span><CiGlobe /></span>
-                    <span>Indonesia</span>
-                </p>
+                <div className='space-y-2'>
+                    <p className='text-xs text-slate-100 w-fit flex justify-center items-center gap-5'>
+                        <span><CiGlobe /></span>
+                        <span>Indonesia</span>
+                    </p>
 
-                <p className='text-xs text-slate-100 w-fit flex justify-center items-center ms-5 mt-2 gap-5'>
-                    <span><IoIosInformationCircle /></span>
-                    <span>v.1.0.0</span>
-                </p>
+                    <p className='text-xs text-slate-100 w-fit flex justify-center items-center gap-5'>
+                        <span><IoIosInformationCircle /></span>
+                        <span>v.1.0.0</span>
+                    </p>
 
-                <p className='text-xs text-slate-100 w-fit flex justify-center items-center ms-5 mt-2 gap-5'>
-                    <span><CiClock2 /></span>
-                    <span>Asia/Jakarta</span>
-                </p>
+                    <p className='text-xs text-slate-100 w-fit flex justify-center items-center gap-5'>
+                        <span><CiClock2 /></span>
+                        <span>Asia/Jakarta</span>
+                    </p>
+                </div>
 
                 <button
-                    className='text-red-600 w-fit flex gap-5 items-center justify-center self-end hover:bg-slate-800 hover:scale-105 py-2 px-3 me-2 rounded transition-all duration-150 ease-in-out'
+                    className='mt-5 text-red-600 w-full flex gap-5 items-center justify-end hover:bg-slate-800 hover:scale-105 py-2 px-3 rounded transition-all duration-150 ease-in-out'
                     onClick={() => handleLogout()}
                 >
                     <span className='text-xs'><CiLogout /></span>
                     <span className='text-xs'>Logout</span>
                 </button>
             </div>
-
         </aside>
     )
 }

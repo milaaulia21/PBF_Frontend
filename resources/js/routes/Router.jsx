@@ -15,10 +15,12 @@ import EditDosen from '../pages/EditDosen'
 import DosenRegister from '../pages/DosenRegister'
 import MahasiswaRegister from '../pages/MahasiswaRegister'
 import Profile from '../pages/Profile'
+import MainLayout from '../components/MainLayout'
 
 export default function Router() {
     return (
-        <>
+
+        <MainLayout>
             <Routes>
                 <Route element={<PublicRoute />}>
                     <Route path="/" element={<Login />} />
@@ -40,6 +42,7 @@ export default function Router() {
                     <Route path="/profile" element={<Profile />} />
                 </Route>
             </Routes>
-        </>
+        </MainLayout>
+
     )
 }

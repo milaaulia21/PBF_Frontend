@@ -1,4 +1,3 @@
-import MainLayout from "../components/MainLayout";
 import { useContext, useState, useEffect } from "react";
 import { DataContext } from "../lib/DataContext";
 import { GoPlus } from "react-icons/go";
@@ -83,7 +82,6 @@ export default function JadwalSidang() {
     }
 
     return (
-        <MainLayout>
             <div className="min-h-[90vh] w-full flex flex-col items-center gap-6 px-4">
                 <div className="w-full max-w-6xl">
                     <div className="relative flex justify-center items-center my-8">
@@ -176,6 +174,5 @@ export default function JadwalSidang() {
                     </div>
                 </div>
             </div>
-        </MainLayout>
     );
 }

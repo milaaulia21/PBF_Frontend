@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../lib/AuthContext";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import Loading from "../components/Loading";
 
 export default function DaftarMahasiswa() {
     const { dataMahasiswa, fetchData } = useContext(DataContext);
@@ -14,7 +15,7 @@ export default function DaftarMahasiswa() {
     const MySwal = withReactContent(Swal)
 
     if (!profile) {
-        return <h1>Loading...</h1>
+        return <Loading />
     }
 
     const navigate = useNavigate();

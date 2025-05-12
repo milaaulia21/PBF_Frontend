@@ -4,6 +4,7 @@ import { IoPersonSharp } from 'react-icons/io5'
 import { useAuth } from '../lib/AuthContext'
 import MahasiswaProfile from '../pages/MahasiswaProfile'
 import DosenProfile from '../pages/DosenProfile'
+import Loading from '../components/Loading'
 
 const Profile = () => {
   const [isEdit, setIsEdit] = useState(false)
@@ -15,7 +16,7 @@ const Profile = () => {
   }
 
   if(!profile){
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   return (

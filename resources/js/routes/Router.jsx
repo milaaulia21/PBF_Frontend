@@ -20,7 +20,6 @@ export default function Router() {
     return (
         <>
             <Routes>
-                {/* Public Routes */}
                 <Route element={<PublicRoute />}>
                     <Route path="/" element={<Login />} />
                     <Route path='/register' element={<Register />} />
@@ -28,7 +27,6 @@ export default function Router() {
                     <Route path='/register/mahasiswa-register' element={<MahasiswaRegister />} />
                 </Route>
 
-                {/* Protected Routes */}
                 <Route element={<ProtectedRoute />}>
                     <Route path="/landing-page" element={<LandingPage />} />
                     <Route path="/jadwal-sidang" element={<JadwalSidang />} />

@@ -1,13 +1,14 @@
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import { useAuth } from "../lib/AuthContext";
+import Loading from "./Loading";
 
 export default function MainLayout({children}){
     const { profile } = useAuth()
     const role = localStorage.getItem('role')
 
     if (!profile) {
-        return <div>Loading...</div>
+        return <Loading />
     }
 
     return(

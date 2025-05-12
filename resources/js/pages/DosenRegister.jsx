@@ -1,16 +1,10 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { handleSubmit } from '../api/dosenApi'
-import { jwtDecode } from 'jwt-decode'
 
 export default function DosenRegister() {
     const [nama, setNama] = useState('')
     const [nip, setNip] = useState('')
-
-    const token = localStorage.getItem('token')
-    const decodedToken = token ? jwtDecode(token) : null
-
-    console.log('decode :', decodedToken)
 
     const navigate = useNavigate()
 

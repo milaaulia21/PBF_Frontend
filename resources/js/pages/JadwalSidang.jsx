@@ -10,6 +10,7 @@ import { jsPDF } from 'jspdf'
 import { autoTable } from 'jspdf-autotable'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import Loading from "../components/Loading";
 
 export default function JadwalSidang() {
     const { dataSidang, dataMahasiswa, dataRuangan, fetchData } = useContext(DataContext);
@@ -26,7 +27,7 @@ export default function JadwalSidang() {
     }, [dataSidang]);
 
     if (!profile) {
-        return <h1>Loading</h1>
+        return <Loading />
     }
 
     const role = localStorage.getItem('role')

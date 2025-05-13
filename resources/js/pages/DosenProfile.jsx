@@ -46,6 +46,7 @@ const DosenProfile = (props) => {
                                 <p>{name}</p>
                             </li>
                             <li>
+                                <p className='font-semibold'>NIP </p>
                                 <p>{nip}</p>
                             </li>
 

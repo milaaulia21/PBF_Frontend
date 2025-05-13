@@ -1,5 +1,5 @@
 import Menus from './Menus'
-import { FaChalkboardTeacher, FaClipboardList, FaHome, FaPlus } from 'react-icons/fa'
+import { FaChalkboardTeacher, FaClipboardList, FaHome, FaPlus, FaUser } from 'react-icons/fa'
 import { PiStudentDuotone } from 'react-icons/pi'
 import { RiSchoolLine } from 'react-icons/ri'
 import { FaCalendarDay } from "react-icons/fa"
@@ -41,6 +41,11 @@ export default function Sidebar({ username, isOpen, isMobile, isTablet, setIsOpe
                 <div className='flex flex-col border-b border-slate-700 py-2'>
                     <Menus name='Home' navigate='landing-page' icon={<FaHome />} />
                     <Menus name='Jadwal Sidang' navigate='jadwal-sidang' icon={<FaCalendarDay />} />
+                    {isAdmin ? (
+                        <Menus name='User' navigate='list-user' icon={<FaUser />} />
+                    ): (
+                        <></>
+                    )}
                 </div>
 
                 <h3 className='ms-5 text-xs font-semibold text-slate-100 mt-3 mb-2 w-fit flex justify-center items-center gap-5'>

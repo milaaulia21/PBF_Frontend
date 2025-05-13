@@ -15,11 +15,11 @@ const MahasiswaProfile = (props) => {
 
     const handleSubmitWrapper = async (e) => {
         e.preventDefault()
-        try{
+        try {
             const res = await handleEdit(profile.id_mhs, name, nim, prodi, tahunAkademik, judulSkripsi)
             MySwal.fire("Success", res.message, "success")
             window.location.reload()
-        }catch(e){
+        } catch (e) {
             console.error('Gagal Mengedit Data :', e)
         }
     }
@@ -38,8 +38,13 @@ const MahasiswaProfile = (props) => {
                         <label className='font-semibold' htmlFor="judulSkripsi">Judul Skripsi</label>
                         <input type="text" id="judulSkripsi" value={judulSkripsi} onChange={(e) => setJudulSkripsi(e.target.value)} name="judulSkripsi" className='w-full h-10 rounded-md mt-2 mb-4 px-2 focus:outline-slate-600' />
 
-                        <label className='font-semibold' htmlFor="prodi">Prodi</label>
-                        <input type="text" id="prodi" name="prodi" value={prodi} onChange={(e) => setProdi(e.target.value)} className='w-full h-10 rounded-md mt-2 mb-4 px-2 focus:outline-slate-600' />
+                        <label htmlFor="prodi_mhs" className="font-semibold">Program Studi</label>
+                        <select name="prodi" id="prodi_mhs" className="mb-4 p-2 rounded-md bg-slate-100" value={prodi} onChange={(e) => setProdi(e.target.value)}>
+                            <option value="D3 TI">D-III Teknik Informatika</option>
+                            <option value="D4 RPL">D-IV Rekayasa Perangkat Lunak</option>
+                            <option value="D4 ALKS">D-IV Akutansi Lembaga Keuangan Syariah</option>
+                            <option value="D4 RKS">D-IV Rekayasa Perangkat Lunak</option>
+                        </select>
 
                         <label className='font-semibold' htmlFor="tahunAkademik">Tahun Akademik</label>
                         <input type="text" id="tahunAkademik" value={tahunAkademik} onChange={(e) => setTahunAkademik(e.target.value)} name="tahunAkademik" className='w-full h-10 rounded-md mt-2 mb-4 px-2 focus:outline-slate-600' />

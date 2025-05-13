@@ -7,32 +7,36 @@ export default function DataProvider({ children }) {
     const [dataMahasiswa, setDataMahasiswa] = useState([]);
     const [dataSidang, setDataSidang] = useState([]);
     const [dataRuangan, setDataRuangan] = useState([]);
+    const [dataUser, setDataUser] = useState([]);
 
     // Fungsi untuk fetch semua data
     const fetchData = async () => {
         try {
-            const [dosen, mahasiswa, sidang, ruangan] = await Promise.all([
+            const [dosen, mahasiswa, sidang, ruangan, user] = await Promise.all([
                 fetch("http://localhost:8080/dosen"),
                 fetch("http://localhost:8080/mahasiswa"),
                 fetch("http://localhost:8080/sidang"),
                 fetch("http://localhost:8080/ruangan"),
+                fetch("http://localhost:8080/users"),
             ]);
 
-            if (!dosen.ok || !mahasiswa.ok || !sidang.ok || !ruangan.ok) {
+            if (!dosen.ok || !mahasiswa.ok || !sidang.ok || !ruangan.ok || !user.ok) {
                 throw new Error("Gagal mengambil data");
             }
 
-            const [dosenData, mahasiswaData, sidangData, ruanganData] = await Promise.all([
+            const [dosenData, mahasiswaData, sidangData, ruanganData, userData] = await Promise.all([
                 dosen.json(),
                 mahasiswa.json(),
                 sidang.json(),
                 ruangan.json(),
+                user.json(),
             ]);
 
             setDataDosen(dosenData.data);
             setDataMahasiswa(mahasiswaData);
             setDataSidang(sidangData);
             setDataRuangan(ruanganData);
+            setDataUser(userData);
         } catch (err) {
             console.error("Error saat fetch data:", err);
         }
@@ -44,7 +48,7 @@ export default function DataProvider({ children }) {
     }, []);
 
     return (
-        <DataContext.Provider value={{ dataDosen, dataMahasiswa, dataSidang, dataRuangan, fetchData }}>
+        <DataContext.Provider value={{ dataDosen, dataMahasiswa, dataSidang, dataRuangan, dataUser, fetchData }}>
             {children}
         </DataContext.Provider>
     );

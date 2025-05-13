@@ -16,6 +16,7 @@ import DosenRegister from '../pages/DosenRegister'
 import MahasiswaRegister from '../pages/MahasiswaRegister'
 import Profile from '../pages/Profile'
 import MainLayout from '../components/MainLayout'
+import DaftarUser from '../pages/DaftarUser'
 
 export default function Router() {
     return (
@@ -35,6 +36,7 @@ export default function Router() {
                     <Route path="/list-dosen" element={<DaftarDosen />} />
                     <Route path="/list-mahasiswa" element={<DaftarMahasiswa />} />
                     <Route path="/list-ruangan" element={<DaftarRuangan />} />
+                    <Route path="/list-user" element={<DaftarUser />} />
                     <Route path="/tambah-ruangan" element={<TambahRuangan />} />
                     <Route path="/edit-mahasiswa" element={<EditMahasiswa />} />
                     <Route path="/edit-ruangan" element={<EditRuangan />} />

@@ -3,62 +3,63 @@ import Sidebar from "./Sidebar";
 import { useAuth } from "../lib/AuthContext";
 import Loading from "./Loading";
 import { useState, useEffect } from "react";
+import useNotification from "../hooks/useNotification";
 
-export default function MainLayout({children}){
-    const { profile, loading } = useAuth()
-    const role = localStorage.getItem('role')
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
-    const [isTablet, setIsTablet] = useState(window.innerWidth >= 768 && window.innerWidth < 1024)
+export default function MainLayout({ children }) {
+    const { profile, loading } = useAuth();
+    const role = localStorage.getItem("role");
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const [isTablet, setIsTablet] = useState(
+        window.innerWidth >= 768 && window.innerWidth < 1024
+    );
     const [isOpen, setIsOpen] = useState(() => {
-        const savedSidebarState = localStorage.getItem('sidebar')
-        return savedSidebarState ? JSON.parse(savedSidebarState) : false
-    })
-    
-    // Handle responsive design and sidebar state
+        const savedSidebarState = localStorage.getItem("sidebar");
+        return savedSidebarState ? JSON.parse(savedSidebarState) : false;
+    });
+
+    useNotification({
+        userId: profile?.id_user,
+        role: role,
+        onMessage: (data) => {
+            console.log("notif :", data);
+        },
+    });
+
     useEffect(() => {
         const handleResize = () => {
-            const mobile = window.innerWidth < 768
-            const tablet = window.innerWidth >= 768 && window.innerWidth < 1024
-            setIsMobile(mobile)
-            setIsTablet(tablet)
-            
-            // Auto-close sidebar on mobile or auto-open on desktop/tablet
+            const mobile = window.innerWidth < 768;
+            const tablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+            setIsMobile(mobile);
+            setIsTablet(tablet);
+
             if (mobile) {
-                setIsOpen(false)
+                setIsOpen(false);
             } else {
-                setIsOpen(true)
+                setIsOpen(true);
             }
-        }
+        };
 
-        // Add resize listener
-        window.addEventListener('resize', handleResize)
-        
-        // Initial check
-        handleResize()
+        window.addEventListener("resize", handleResize);
+        handleResize();
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
-        // Cleanup listener
-        return () => window.removeEventListener('resize', handleResize)
-    }, [])
-    
-    if (loading) {
-        return <Loading />
-    }
+    if (loading) return <Loading />;
+    if (!profile) return children;
 
-    if (!loading && !profile) {
-        // Optionally redirect to login or render children as public
-        return children
-    }
-    
     const toggleSidebar = () => {
-        const newState = !isOpen
-        setIsOpen(newState)
-        localStorage.setItem('sidebar', JSON.stringify(newState))
-    }
+        const newState = !isOpen;
+        setIsOpen(newState);
+        localStorage.setItem("sidebar", JSON.stringify(newState));
+    };
 
-    return(
+    return (
         <div className="w-screen h-screen flex relative">
-            <Sidebar 
-                username={role === "mahasiswa" ? profile.nama_mhs : profile.nama_dosen} 
+            <Sidebar
+                username={
+                    role === "mahasiswa" ? profile.nama_mhs : profile.nama_dosen
+                }
                 isOpen={isOpen}
                 isMobile={isMobile}
                 isTablet={isTablet}
@@ -72,14 +73,16 @@ export default function MainLayout({children}){
                             ? "opacity-50 pointer-events-none"
                             : "opacity-100 pointer-events-auto"
                         : isOpen
-                        ? isTablet
-                            ? "ml-[30vw]"
-                            : "md:ml-[18vw] lg:ml-[18vw]"
-                        : "ml-0")
+                            ? isTablet
+                                ? "ml-[30vw]"
+                                : "md:ml-[18vw] lg:ml-[18vw]"
+                            : "ml-0")
                 }
             >
                 <Navbar
-                    username={role === "mahasiswa" ? profile.nama_mhs : profile.nama_dosen}
+                    username={
+                        role === "mahasiswa" ? profile.nama_mhs : profile.nama_dosen
+                    }
                     role={role}
                     roleId={role === "mahasiswa" ? profile.nim : profile.nip}
                     isAdmin={profile.isAdmin}
@@ -92,8 +95,7 @@ export default function MainLayout({children}){
                     {children}
                 </div>
             </div>
-            
-            {/* Overlay for mobile when sidebar is open */}
+
             {isMobile && isOpen && (
                 <div
                     className="fixed inset-0 bg-black bg-opacity-50 z-40"
@@ -101,5 +103,6 @@ export default function MainLayout({children}){
                 />
             )}
         </div>
-    )
+    );
 }
+

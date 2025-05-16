@@ -15,6 +15,7 @@ const PopupNotification = (props) => {
 
     return (
         <div className={`z-10 absolute w-[20rem] flex flex-col gap-2 items-center right-10 top-[2rem] bg-slate-700 rounded-md text-white p-2 transition-all ease-in-out duration-150 ${props.isHidden ? 'opacity-0 pointer-events-none' : 'opacity-100 translate-y-0'}`}>
+            <h2>Notifikasi</h2>
             {
                 notification.map(datas => {
                     return (

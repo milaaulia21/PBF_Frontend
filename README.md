@@ -19,8 +19,8 @@ Ini adalah **frontend aplikasi penjadwalan sidang skripsi** berbasis **Laravel +
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/namamu/nama-repo-frontend.git
-cd nama-repo-frontend
+git clone https://github.com/milaaulia21/PBF_Frontend -b new-branch
+cd PBF-Frontend
 ```
 
 ### 2. Install Dependensi Laravel

@@ -46,7 +46,7 @@ export default function Navbar(props) {
                             className="text-slate-50 hover:bg-slate-900 rounded-md transition-all duration-150 ease-in-out p-2 cursor-pointer text-2xl relative"
                         >
                             <IoIosNotifications />
-                            <PopupNotification isHidden={isHiddenNotification} username={props.username} role={props.role} roleId={props.roleId} isAdmin={props.isAdmin} />
+                            <PopupNotification isHidden={isHiddenNotification} username={props.username} role={props.role} roleId={props.roleId} isAdmin={props.isAdmin} profile={props.profile}/>
                         </h3>
                     </li>
                 </ul>

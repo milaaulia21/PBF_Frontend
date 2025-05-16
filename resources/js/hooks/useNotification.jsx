@@ -8,8 +8,6 @@ const useNotification = ({ userId, role, onMessage }) => {
             console.log("🔒 useNotification tidak dijalankan: userId atau role kosong");
             return;
           }
-      
-          console.log("🔔 useNotification aktif untuk:", role, userId);
 
         const pusher = new Pusher('7391d8200d7c87d4cb27', {
             cluster: 'ap1',

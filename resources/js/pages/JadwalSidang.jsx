@@ -87,7 +87,7 @@ export default function JadwalSidang() {
                     <div className="relative flex justify-center items-center my-8">
 
                         <button
-                            className={`absolute left-0 bg-slate-800 text-white py-2 px-4 rounded-full flex items-center gap-2 hover:scale-105 hover:opacity-80 transition-all ${!isMahasiswa && 'hidden'}`}
+                            className={`absolute left-0 bg-slate-800 text-white py-2 px-4 rounded-full flex items-center gap-2 hover:scale-105 hover:opacity-80 transition-all`}
                             onClick={() => exportJadwalSidangToPDF()}
                         >
                             <MdOutlineFileDownload className="text-lg" /> Download

@@ -3,7 +3,6 @@ import Sidebar from "./Sidebar";
 import { useAuth } from "../lib/AuthContext";
 import Loading from "./Loading";
 import { useState, useEffect } from "react";
-import useNotification from "../hooks/useNotification";
 
 export default function MainLayout({ children }) {
     const { profile, loading } = useAuth();
@@ -16,14 +15,6 @@ export default function MainLayout({ children }) {
     const [isOpen, setIsOpen] = useState(() => {
         const savedSidebarState = localStorage.getItem("sidebar");
         return savedSidebarState ? JSON.parse(savedSidebarState) : false;
-    });
-
-    useNotification({
-        userId: profile?.id_user,
-        role: role,
-        onMessage: (data) => {
-            console.log("notif :", data);
-        },
     });
 
     useEffect(() => {
@@ -87,6 +78,7 @@ export default function MainLayout({ children }) {
                     roleId={role === "mahasiswa" ? profile.nim : profile.nip}
                     isAdmin={profile.isAdmin}
                     onClick={toggleSidebar}
+                    profile={profile}
                 />
                 <div
                     className="flex-1 overflow-y-auto"

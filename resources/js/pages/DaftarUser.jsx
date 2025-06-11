@@ -1,22 +1,37 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { DataContext } from '../lib/DataContext'
 import { MdDeleteForever } from 'react-icons/md'
 import { handleDelete } from '../api/userApi'
+import { handleUpdateIsAdmin } from '../api/userApi'
+import { FaUserCheck, FaUserMinus } from 'react-icons/fa'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import MiniPopUp from '../components/MiniPopUp'
 
 const DaftarUser = () => {
   const { dataUser, fetchData } = useContext(DataContext)
   const MySwal = withReactContent(Swal)
+  const [hoveredButton, setHoveredButton] = useState(null)
 
-  const handleDeleteWrapper = async(id) => {
-    try{
+  const handleDeleteWrapper = async (id) => {
+    try {
       const res = await handleDelete(id)
       console.log(res)
       MySwal.fire('Success', res.message, 'success')
       fetchData()
-    }catch(e){
-      MySwal.fire('Error', res.message, 'error')
+    } catch (e) {
+      MySwal.fire('Error', e.message, 'error')
+    }
+  }
+
+  const handleUpdateIsAdminWrapper = async (id, isAdmin) => {
+    try {
+      const res = await handleUpdateIsAdmin(id, isAdmin)
+      console.log(res)
+      MySwal.fire('Success', res.message, 'success')
+      fetchData()
+    } catch (e) {
+      MySwal.fire('Error', e.message, 'error')
     }
   }
 
@@ -24,8 +39,8 @@ const DaftarUser = () => {
     <div className="w-full px-4 flex flex-col items-center">
       <h2 className="text-2xl font-semibold my-8 mb-10">Daftar User</h2>
 
-      <div className="w-full overflow-x-auto">
-        <table className="min-w-[600px] w-full border border-gray-300 text-sm">
+      <div className="w-full h-full overflow-x-auto">
+        <table className="min-w-[600px] w-full border border-gray-300 text-sm overflow-visible relative z-1">
           <thead className="bg-slate-800 text-white">
             <tr>
               <th className="p-3 border w-12 text-center">ID</th>
@@ -35,7 +50,7 @@ const DaftarUser = () => {
               <th className="p-3 border text-center">Aksi</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className='overflow-visible'>
             {dataUser.length > 0 ? (
               dataUser.map((user, index) => (
                 <tr
@@ -48,15 +63,50 @@ const DaftarUser = () => {
                   <td className="p-3 border text-center">
                     {user.isAdmin === 'Y' || user.isAdmin === 1 ? 'Yes' : 'No'}
                   </td>
-                  <td className="p-3 border text-center flex items-center justify-center ">
-                    <button className="text-red-600" onClick={() => handleDeleteWrapper(user.id_user)}>
-                    <MdDeleteForever className="text-2xl hover:scale-110 transition-all ease-in-out duration-150" />
+                  <td className="p-3 gap-3 border text-center flex items-center justify-center relative">
+                    <button
+                      className="text-red-600 relative"
+                      onClick={() => handleDeleteWrapper(user.id_user)}
+                      onMouseOver={() => setHoveredButton(`delete-${user.id_user}`)}
+                      onMouseLeave={() => setHoveredButton(null)}
+                    >
+                      <MdDeleteForever className="text-2xl hover:scale-110 transition-all ease-in-out duration-150" />
+                      {hoveredButton === `delete-${user.id_user}` && (
+                        <MiniPopUp text={'Delete'} isHidden={hoveredButton !== `delete-${user.id_user}`} />
+                      )}
                     </button>
+                    {
+                      user.isAdmin === 'N' ? (
+                        <button
+                          className="text-green-600 relative "
+                          onClick={() => handleUpdateIsAdminWrapper(user.id_user, user.isAdmin)}
+                          onMouseOver={() => setHoveredButton(`admin-${user.id_user}`)}
+                          onMouseLeave={() => setHoveredButton(null)}
+                        >
+                          <FaUserCheck className="text-xl hover:scale-110 transition-all ease-in-out duration-150" />
+                          {hoveredButton === `admin-${user.id_user}` && (
+                            <MiniPopUp text={'Set Admin'} isHidden={hoveredButton !== `admin-${user.id_user}`} />
+                          )}
+                        </button>
+                      ) : (
+                        <button
+                          className="text-red-600 relative "
+                          onClick={() => handleUpdateIsAdminWrapper(user.id_user, user.isAdmin)}
+                          onMouseOver={() => setHoveredButton(`admin-${user.id_user}`)}
+                          onMouseLeave={() => setHoveredButton(null)}
+                        >
+                          <FaUserMinus className="text-xl hover:scale-110 transition-all ease-in-out duration-150" />
+                          {hoveredButton === `admin-${user.id_user}` && (
+                            <MiniPopUp text={'Del Admin'} isHidden={hoveredButton !== `admin-${user.id_user}`} />
+                          )}
+                        </button>
+                      )
+                    }
                   </td>
                 </tr>
               ))
             ) : (
-              <tr>
+              <tr className='overflow-visible'>
                 <td colSpan="5" className="p-4 text-center text-gray-500">
                   Tidak ada data user tersedia.
                 </td>

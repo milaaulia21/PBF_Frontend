@@ -3,10 +3,14 @@ import Sidebar from "./Sidebar";
 import { useAuth } from "../lib/AuthContext";
 import Loading from "./Loading";
 import { useState, useEffect } from "react";
+import useNotification from "../hooks/useNotification";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 export default function MainLayout({ children }) {
     const { profile, loading } = useAuth();
     const role = localStorage.getItem("role");
+    const MySwal = withReactContent(Swal)
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const [isTablet, setIsTablet] = useState(
@@ -15,6 +19,25 @@ export default function MainLayout({ children }) {
     const [isOpen, setIsOpen] = useState(() => {
         const savedSidebarState = localStorage.getItem("sidebar");
         return savedSidebarState ? JSON.parse(savedSidebarState) : false;
+    });
+    const [notification, setNotification] = useState([])
+
+    useNotification({
+        userId: profile?.id_user,
+        role: role,
+        onMessage: (data) => {
+            setNotification(prev => [...prev, data])
+            console.log(data)
+            MySwal.fire({
+                text: data.message,
+                icon: 'info',
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+            })
+        },
     });
 
     useEffect(() => {
@@ -79,6 +102,7 @@ export default function MainLayout({ children }) {
                     isAdmin={profile.isAdmin}
                     onClick={toggleSidebar}
                     profile={profile}
+                    notification={notification}
                 />
                 <div
                     className="flex-1 overflow-y-auto"

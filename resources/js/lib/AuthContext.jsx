@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
     const fetchProfile = async () => {
         setLoading(true)
         setError(null)
+        
         try {
             const token = localStorage.getItem('token')
             if (!token) {

@@ -38,7 +38,7 @@ export default function DaftarMahasiswa() {
     return (
             <div className="w-full flex flex-col items-center px-4">
                 <h2 className="text-2xl font-semibold my-8 mb-10">Daftar Mahasiswa</h2>
-                <div className="w-full max-w-7xl overflow-x-scroll">
+                <div className="w-full max-w-7xl overflow-x-hidden">
                     <table className="w-full border border-collapse text-center">
                         <thead className="bg-slate-800 text-white">
                             <tr>

@@ -27,19 +27,12 @@ export default function Navbar(props) {
     }, [])
 
     const handleDeleteNotificationWrapper = async (id) => {
-        setIsDeleting(true);
-        const previousNotifications = [...notification];
-        
+        setNotification(prev => prev.filter(item => item.id !== id));
         try {
-            setNotification(prev => prev.filter(item => item.id !== id));
-            
-            await handleDeleteNotification(id);
+            await handleDeleteNotification(id)
+
         } catch (e) {
-            console.error(e);
-            setNotification(previousNotifications);
-            alert('Gagal menghapus notifikasi');
-        } finally {
-            setIsDeleting(false);
+            console.error(e)
         }
     }
     return (

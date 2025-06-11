@@ -71,9 +71,9 @@ const DaftarUser = () => {
                       onMouseLeave={() => setHoveredButton(null)}
                     >
                       <MdDeleteForever className="text-2xl hover:scale-110 transition-all ease-in-out duration-150" />
-                      {hoveredButton === `delete-${user.id_user}` && (
+                      {/* {hoveredButton === `delete-${user.id_user}` && (
                         <MiniPopUp text={'Delete'} isHidden={hoveredButton !== `delete-${user.id_user}`} />
-                      )}
+                      )} */}
                     </button>
                     {
                       user.isAdmin === 'N' ? (
@@ -84,9 +84,9 @@ const DaftarUser = () => {
                           onMouseLeave={() => setHoveredButton(null)}
                         >
                           <FaUserCheck className="text-xl hover:scale-110 transition-all ease-in-out duration-150" />
-                          {hoveredButton === `admin-${user.id_user}` && (
+                          {/* {hoveredButton === `admin-${user.id_user}` && (
                             <MiniPopUp text={'Set Admin'} isHidden={hoveredButton !== `admin-${user.id_user}`} />
-                          )}
+                          )} */}
                         </button>
                       ) : (
                         <button
@@ -96,9 +96,9 @@ const DaftarUser = () => {
                           onMouseLeave={() => setHoveredButton(null)}
                         >
                           <FaUserMinus className="text-xl hover:scale-110 transition-all ease-in-out duration-150" />
-                          {hoveredButton === `admin-${user.id_user}` && (
+                          {/* {hoveredButton === `admin-${user.id_user}` && (
                             <MiniPopUp text={'Del Admin'} isHidden={hoveredButton !== `admin-${user.id_user}`} />
-                          )}
+                          )} */}
                         </button>
                       )
                     }
